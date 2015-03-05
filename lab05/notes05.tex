@@ -1,0 +1,44 @@
+\documentclass{article}
+
+
+% This file is a solution template for:
+\input{../preamble/lab_preamble.tex}
+
+
+\title{Diodes}
+
+
+\begin{document}
+\maketitle
+
+\section{Lab 5: Diodes}
+
+\subsection*{General comments}
+
+\begin{itemize}
+\item Prefer use of oscilloscope over the use of DVM, but keep in mind that the oscilloscope adds a ground to the circuit.
+\end{itemize}
+
+\subsection{I-V Characteristic of a Diode}
+\begin{itemize}
+\item Make sure the students measure in both forward and reverse voltage, and have several data points on the rising forward bias slope.
+\item Trim pots are a convenient way to vary the current and voltage, but do not allow for easy resistance measurements.
+\item Students can use LEDs instead of regular diodes, but the threshold voltage will be higher (up to 2.5\,V) and that will require changes to the voltages applied in the rectifier circuit later.
+\item The power supply on the board has only $V^+$ and $V^-$ and doesn't allow for values between +1.5\,V and -1.5\,V.  A trim pot voltage divider between +1.5\,V and -1.5\,V can be used to obtain intermediate values, but with a high output impedance.  This means that the remaining resistor in the circuit will have to be chosen appropriately.
+\end{itemize}
+
+\subsection{Full-Wave Rectifier (estimated time: 30 minutes)}
+\begin{itemize}
+\item Step-up is required to change the 2\,V input to a voltage large enough to have an amplitude of at least two diode drops.  It is also required to get rid of the explicit ground of the signal generator.
+\item Depending on whether the students connect one terminal of the rectified signal to ground, measuring the transformer output by naively connecting the oscilloscope across the secondary terminals may introduce an extra ground that affects the behavior of the diode diamond.  This can be avoided by measuring each secondary terminal indepdendently with CH1 and CH2, then taking the difference on the scope.
+\item Suggested additional activity: Change the signal generator voltage level such that the output after the filtering capacitor is positive and between 7.5\,V and 9\,V.  Connect an LM7805 voltage regulator according to the datasheet and measure the remaining ripples in the output voltage (they should be very small).
+\end{itemize}
+
+\subsection{Frequency Multiplier (estimated time: 30 minutes)}
+\begin{itemize}
+\item dB is defined with reference to 1\,V$_{RMS}$: $20 ^{10}\log V_{RMS}$.
+\item Suggested additional activity: Add an additional signal using the signal generator on your breadboard.  Vary the frequency and sketch the FFT with the frequency combinations $\omega_1 + \omega_2$ and $\omega_1 - \omega_2$.
+\end{itemize}
+
+
+\end{document}

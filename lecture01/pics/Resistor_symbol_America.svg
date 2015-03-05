@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!--
+  Resistor (circuit diagram element, horizontal orientation)
+  Originally produced by K. Bolino, 7 May 2008.
+  
+  Released into the public domain by the author.
+-->
+<svg width="100" height="80" xmlns="http://www.w3.org/2000/svg" version="1.0">
+  <g id="base" fill="none" stroke="black" stroke-width="2">
+    <polyline id="resistor" points="0,40 10,40 15,50 25,30 35,50 45,30 55,50
+        65,30 75,50 85,30 90,40 100,40" />
+  </g>
+</svg>

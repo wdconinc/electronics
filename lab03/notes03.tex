@@ -1,0 +1,62 @@
+\documentclass{article}
+
+
+% This file is a solution template for:
+\input{../preamble/lab_preamble.tex}
+
+
+\title{Capacitors, Inductors, and Complex Impedance}
+
+
+\begin{document}
+\maketitle
+
+\section{Lab 3: AC signals, Complex Impedance, and Phase}
+
+\subsection*{General comments}
+
+\begin{itemize}
+\item Prefer use of oscilloscope over the use of DVM in preparation of filters: AC signals should typically be viewed on oscilloscope, and RMS can confuse things...
+\item Focus on relationships between internal impedance, Th\'{e}venin resistance, output impedance on the one hand; and load resistance, input impedance on the other hand.
+\item Keep pointing similarities to the simple voltage divider, except now with impedance.
+\end{itemize}
+
+Oscilloscope skills to focus on:
+\begin{itemize}
+\item Voltage and time scales: reading, setting, shifting
+\item Triggering: setting channel, level and direction; reading trigger frequency
+\item Using cursors and measurements
+\item Using calibration input and paying attention to probe settings
+\end{itemize}
+
+Function generator skills to focus on:
+\begin{itemize}
+\item Using the 50\,\Ohm output, not the TTL output
+\item Setting frequency and amplitude
+\item Pay attention to 20\,dB attenuation, DC offset
+\end{itemize}
+
+\subsection{Introduction to transformers}
+Internal resistance of the transformer:
+\begin{itemize}
+\item Disagreement between predicted result (design exercise) and measured value: where does the difference come from?  Let students think about this and come up with hypotheses.
+\item Hint: Components in circuit diagrams are considered to be ideal, but in reality (in particular for inductors) they are hardly ideal.  What could be the non-ideal behavior for these inductors?
+\item Primary resistance can be treated in series with output impedance of the source.  Secondary resistance can be treated as in series with the transformed impedance.  Ultimately the output impedance of the transformed source is $Z' = (Z + R_P) (N_S/N_P)^2 + R_S$.
+\end{itemize}
+
+\subsection{Capacitors in series and parallel}
+Point out where capacitors are, and where they can be measured (some DVMs have capacitor measurement).
+
+\subsection{The \boldmath$RC$ circuit}
+Make sure to stress that angular frequency $\omega$ is not equal to frequency $f$.  Difference in $v_{in}/v_{out}$ ratio will be about $\sqrt{1 + (2\pi)^2} \approx 6$
+
+Measuring time constants:
+\begin{itemize}
+\item Oscilloscope set to AC mode can confuse things
+\item Do not use internal fall/rise time measurements which probably use 90\%-10\% fall/rise time, even though they can be related using ratios of $\ln 0.9$
+\item Use max/min/period measurements and $v_{min} = v_{max} \exp (-t/\tau)$ to determine $\tau$, or can be done with cursors
+\end{itemize}
+
+Lissajous plots in $XY$ mode under menu ``Display.''
+
+\end{document}

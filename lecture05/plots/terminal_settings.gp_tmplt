@@ -1,0 +1,12 @@
+# =========== more suitable for publications ===========
+#nice readable plots with large fonts since size is twice smaller then default
+#set terminal postscript eps  enhanced color dashed clip size 2.5,1.75
+#set terminal postscript landscape enhanced color solid size 5,3.5
+# ======= default size for ps/eps ======================
+#set terminal postscript landscape enhanced color solid 
+# ========= output to latex first ======================
+# use helvetica familyfont for text and math font
+set terminal epslatex standalone clip size 4.0,2.8 \
+	header \
+		"\\usepackage{amsmath} \n \\usepackage[helvet]{sfmath} " \
+	color colortext font 'phv' 10

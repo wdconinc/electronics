@@ -1,0 +1,178 @@
+\documentclass{article}
+
+
+% This file is a solution template for:
+\input{../preamble/lab_preamble.tex}
+
+
+\title{Kirchhoff's Laws and Th\'{e}venin's Theorem}
+
+
+\begin{document}
+\maketitle
+
+In this course we will be using a variety of mathematical and conceptual models to describe the electrical components and circuits that we will encounter. Ohm's Law was the first such model. In this chapter we will consolidate some of the concepts from last week into a generic model of a linear device known as a \emph{Th\'{e}venin equivalent circuit} (with input impedance, output impedance, and internal voltage).
+
+The Th\'{e}venin equivalents will also be generalized and used to describe properties of signals. A \emph{signal} will be described not only by its \emph{voltage} but also by the \emph{output impedance} of the device that produced or transported it. The concept of the \emph{impedance of a signal} will be used extensively through this course as we discover various methods to transform the properties of a signal.
+
+This week we will also examine network analysis in a complete framework known as Kirchhoff's Laws.  These rules will allow us to analyze the properties of any combination of resistors and power supplies. 
+
+\section{Kirchhoff's Laws}
+If you connect lots of power supplies and resistors together in a complicated network, then currents will flow through all the various elements so as to insure that charge is conserved, energy is conserved, and Ohm's Law is satisfied for each resistor. Simultaneously satisfying all these conditions will give you exactly one solution. The method for writing down equations to represent these conservation laws is called Kirchhoff's Laws. To explore these laws, we will consider the sample circuit shown in Figure~\ref{fig:circuit} on the right.
+
+\begin{figure}
+ \begin{center}
+  \begin{circuitikz}
+   \draw (-2,2) to[R,l=$R_1$,i=$I_1$,-*] (0,2);
+   \draw (2,2) to[R,l=$R_2$,i=$I_2$,-*] (0,2);
+   \draw (0,0) to[short,*-] (2,0) to[battery1,l=$V_2$] (2,2);
+   \draw (0,0) to[short,*-] (-2,0) to[battery1,l=$V_1$] (-2,2);
+   \draw (0,2) to[R,l=$R_3$,i=$I_3$] (0,0) to (0,-0.1) node[ground]{};
+  \end{circuitikz}
+ \end{center}
+ \caption{A circuit with two power supplies and three resistors. A choice of current directions is indicated.}
+ \label{fig:circuit}
+\end{figure}
+
+\subsection{Kirchhoff's Point Law}
+\emph{Kirchhoff's Point Law} says that all of the current that flows into a junction must come out of the junction. This means that charge is conserved---none falls out of the circuit or pools in any location. This concept is illustrated for the top junction in the example circuit (see Figure~\ref{fig:circuit}). In this case, we have
+\begin{equation}
+ I_1 + I_2 - I_3 = 0.
+\end{equation}
+Note the sign conventions. We say that a current is positive if we define it to flow into the junction and negative if we define it to flow out the junction.
+
+\subsection{Kirchhoff's Loop Law}
+\emph{Kirchhoff's Loop Law} says that if you sum the voltage drops around any closed loop in a circuit the total must be zero. Since the voltage drops represent the energy per unit charge, this means that all the energy which comes out of the circuit (in heating resistors, for example) must come from some power sources (such as power supplies). This is just conservation of energy. 
+
+The sign conventions are that the voltage increases across a power supply and decreases across a resistor in the direction of current flow. The direction of current flow should be the same as the one defined for the Point Law. In our example circuit there are three loops that could be considered. From these three loops, we obtain the three following relationships:
+\begin{eqnarray}
+ 0 & = & V_1 - I_1 R_1 + I_2 R_2 - V_2 \\
+ 0 & = & V_1 - I_1 R_1 - I_3 R_3 \\
+ 0 & = & V_2 - I_2 R_2 - I_3 R_3
+\end{eqnarray}
+Any two of these relationships (since all three are not independent) and the point relationship can be used to solve for the current in each resistor and hence the power in each resistor. 
+
+It can be a real nightmare to solve more complicated networks and we will develop models and methods to avoid solving complicated networks wherever we can. We will usually do this by making one part of a circuit relatively independent of another part. Our most common use of Kirchhoff's Laws will usually be to say that $V = I R$ and apply the simple relationships for resistors connected in series or parallel. In the next section we will begin to explore how this is possible. 
+
+\section{Th\'{e}venin Equivalents}
+The Th\'{e}venin equivalents are models to describe the input and output properties of a device. We will assume the input of a device looks like a resistor with the other end connected to ground.  We will assume that an output looks like an ideal voltage source followed by a resistor. Both of these are shown in Figure~\ref{fig:thevenin}, below. Note that for this week's discussion the term resistance and impedance are treated as synonymous. 
+
+\begin{figure}
+ \begin{center}
+  \begin{circuitikz}
+   \draw (-2,2) to[R,l=$R_{in}$,o-] (0,2) to (0,0) node[ground]{};
+  \end{circuitikz}
+  \quad
+  \begin{circuitikz}
+   \draw (-2,0) node[ground]{} to[battery1,l=$V_{Th}$] (-2,2) to[R,l=$R_{Th}$,-o] (0,2);
+  \end{circuitikz}
+ \end{center}
+ \caption{The Th\'{e}venin equivalent circuit for an input device (left), and the Th\'{e}venin equivalent circuit for a voltage source (right).}
+ \label{fig:thevenin}
+\end{figure}
+
+One can determine the input impedance ($R_{in}$) by simply applying a voltage to the input, measuring the current flowing into the device, and applying Ohm's Law.
+
+Given any electrical device with two output terminals (we will assume one is called ground) there are a number of you might do to try to determine its properties:
+\begin{enumerate}
+\item Measure the voltage across the terminals.
+\item Attach a resistor across the terminals and then measure the voltage.
+\item Change the resistor and measure the voltage again, repeat.
+\end{enumerate}
+Clearly, these are all variations on one simple measurement. What is the minimum number of measurements you must do to characterize this black box completely? Th\'{e}venin's answer is just two! 
+
+\subsection{Th\'{e}venin's Theorem}
+Any linear (i.e. Ohmic) system with two terminals can be completely characterized as an ideal voltage source ($V_{Th}$ or Th\'{e}venin voltage) in series with one resistor ($R_{Th}$ or Th\'{e}venin resistance, and also sometimes called internal resistance). No matter what resistance ($R_L$) you connect across the two terminals, it just forms a voltage divider, as shown in Figure~\ref{fig:voltage_divider} on the right, and so the voltage across that load resistor is given by: 
+\begin{equation}
+V_L = V_{Th} \left( \frac{R_L}{R_{Th} + R_L} \right)
+\end{equation}
+
+\begin{figure}
+ \begin{center}
+  \begin{circuitikz}
+   \draw (-2,0) node[ground]{} to[battery1,l=$V_{Th}$] (-2,2) to[R,l=$R_{Th}$] (0,2) to[short] (1,2) to[R,l=$R_L$,i=$I_L$,v=$V_L$] (1,0) node[ground]{};
+  \end{circuitikz}
+ \end{center}
+ \caption{A voltage source connected to a load can be treated as voltage divider.}
+ \label{fig:voltage_divider}
+\end{figure}
+
+A special case is when there isn't any load applied (i.e. option 1 above, where $R_L = \infty$) then the output is simply $V_{Th}$. From the results of these two measurements we can solve for $R_{Th}$.
+
+\subsection{Voltage Divider as a Th\'{e}venin Device}
+Let's consider what happens to our voltage divider from last week when we connect a load resistance to its output. From last week we computed the output of a loaded voltage divider was given by:
+\begin{equation}
+V_L = V_{in} \frac{R_2}{R_1 + R_2} \frac{R_L}{R_{1\parallel 2} + R_L}
+\end{equation}
+If we equate factors from in this relationship with the ones in the previous section, we can see that for a loaded voltage divider produces Th\'{e}venin equivalents of 
+\begin{eqnarray}
+ V_{Th} & = & V_{in} \frac{R_2}{R_1 + R_2} \\
+ R_{Th} & = & R_{1 \parallel 2} = \frac{R_1 R_2}{R_1 + R_2}
+\end{eqnarray}
+The relationship for $V_{Th}$ makes sense.  It is simply the unloaded output voltage as describe in the previous section. The output impedance is simply the parallel equivalent of the two resistors on the voltage divider. 
+
+\subsection{Designing a Stiff Voltage Divider}
+A stiff output implies that the output voltage stays relatively close to its Th\'{e}venin, or unloaded, voltage when a load is implied. A rule of thumb for designing a stiff voltage source is that the output should not deviate by more than about 10\% when loaded. From the relationships in the previous section, we can see that this implies that the load resistance must be more than a factor of 10 larger than the output impedance (in the voltage divider case $R_{Th} = R_{1\parallel 2}$). We can think of this at a \emph{Rule of 10}. We will usually design it so that R1 itself is smaller than the expected load by a factor of 10. 
+
+\subsection{Generalization and Application of the Rule of 10 and Notable Exceptions}
+Since we are going to design and construct some very complicated circuits this year, we need to be able to focus on parts of circuits, which we will call sub-circuits. For example, we will often build amplifiers in three stages. The basic idea is to always insure that the downstream elements do not load the upstream elements. (1) The first stage will be a ``buffer'' amplifier that takes a signal and amplifies the current but not the voltage. This will allow us to connect it to the next part of the amplifier without changing (i.e. loading) the characteristics of whatever generated the signal. The second stage will be a voltage amplifier that amplifies a signal's voltage to whatever level we need. The final stage will be another buffer amplifier that again amplifies the current so that we will not load our voltage amplifier when we use its output. 
+
+This gains us two major advantages: We will never have a large number of interdependent simultaneous equations to solve, and our circuits will work under a wide range of differing operational conditions.
+Here is the general procedure: 
+\begin{itemize}
+\item Any sub-circuit can be modeled, using Th\'{e}venin's Theorem, as an ideal voltage source ($V_{Th}$) in series with a resistance ($R_{Th}$).
+\item When we connect this to the next sub-circuit we can represent that by a load resistance ($R_L$) thus making a voltage divider. 
+\item We can keep our equations simple, so that we need not employ the full Kirchhoff's Laws formalism, simply by following a ``factor of 10'' rule. 
+\end{itemize}
+In summary, anything we design to produce a reliable voltage should have $R_{Th}$ smaller $R_L$ by least a factor of 10. That is, we do not want the voltage to change significantly when the sub-circuit is connected to subsequent parts of the circuit.
+
+\subsection{Constant Voltage Sources}
+The most common sub-circuit we will use will supply a voltage to a later part of a circuit. It may be a power supply to power all the other sub-circuits, or it may be a biasing network to keep a transistor in its normal operating region. For these type sub-circuits, we want $V_L$ to be relatively independent of $R_L$, so this means $R_L > 10 R_{Th}$.
+
+\subsection{Constant Current Sources}
+We will later see that transistors are current amplifiers. This means that we will often want to drive an amplifier with a current source. A current source can also be modeled as ideal voltage source in series with an $R_{Th}$. Again, the complete circuit will look like an ideal voltage source driving a voltage divider, but we want the current through $R_L$ to be relatively independent of $R_L$. This means we want the same current as when we remove $R_L$ and just connect (or ``short'') the two leads together. By applying the same logic above this implies that we want $R_L < 10 R_{Th}$ for a stiff current source.
+
+\subsection{Impedance Matching}
+There are two cases when we require $R_L = R_{Th}$, which we will call ``impedance matching''. If you want the most efficient transfer of power to your load, then you must choose $R_L = R_{Th}$. By the most efficient transfer, we mean that 
+\begin{equation}
+ P_L = I^2 R_L = \left( \frac{V_{Th}}{R_L + R_{Th}} \right)^2 R_L
+\end{equation}
+will have its largest value when $R_L = R_{Th}$. Of course this will severely load the source, dropping the output voltage by exactly a factor of two. This may, however, be fine in simple circuits -- like lighting a light-bulb or driving an audio speaker. 
+
+The second case is when you have very fast signals traveling along transmission cables such as the BNC cables that we often use to connect laboratory equipment. Then, we will want to prevent reflections at our connections, since these could give rise to phony signals. Then we will want to choose $R_L = R_{Th}$, even though it will decrease the amplitude of the signal. We often accomplish this matching by attaching a 50\,\Ohm \emph{terminator} to the end of our BNC cable to ensue that the impedance is matched.
+
+
+\pagebreak
+
+\section{Lab 2: Design Exercises}
+
+\begin{enumerate}
+\item \label{exercise:wheatstone} Use Kirchhoff's laws to determine the resistance of the Wheatstone bridge depicted in the circuit in Figure~\ref{fig:wheatstone}.  \emph{Hint:} complete the circuit with a voltage source and feel free to use a computer to solve the resulting system of equations in the currents and voltages.  Another approach could be to use a ``Delta-Wye'' transformation\ldots
+\item \label{exercise:voltage_divider} Find a relationship between $V_L$, $I_L$, and $R_{Th}$ that does not depend on $R_L$ in the Th\'{e}venin equivalent circuit of Figure~\ref{fig:voltage_divider}.
+\item How would you measure the Th\'{e}venin resistance and voltage of a power supply?
+\item Prove that the power transfer from a power supply with Th\'{e}venin resistance, $R_{Th}$, to a load resistor, $R_L$, is maximum when $R_L = R_{Th}$.
+\end{enumerate}
+
+\begin{figure}
+ \begin{center}
+  \begin{circuitikz}
+   \draw (-2,0) to[short] (-1.5,0) to[R,l=$R_1$] (0,1.5) to[R,l=$R_2$] (1.5,0) to[short] (2,0);
+   \draw (-1.5,0) to[R,l=$R_3$] (0,-1.5) to[R,l=$R_4$] (1.5,0);
+   \draw (0,1.5) to[R,l=$R_5$] (0,-1.5);
+  \end{circuitikz}
+ \end{center}
+ \caption{A Wheatstone bridge circuit.}
+ \label{fig:wheatstone}
+\end{figure}
+
+
+\section{Lab 2: Kirchhoff, Th\'{e}venin, and Impedance Matching}
+
+\begin{enumerate}
+\item Construct a Wheatstone bridge from 5 resistors in the 1--10 k\Ohm range. Measure its resistance at a few voltages (i.e. measure current and voltage). What is its resistance? Does it agree with your calculation from design exercise \ref{exercise:wheatstone}? 
+\item Construct a voltage divider similar to the one you made last week for lab exercises 3 and 4. Set $V_{in}$ to 10 V and measure $V_{Th}$ and $R_{Th}$ seen by a load resistor---you will not be able to measure $R_{Th}$ directly, so you will have to come up with a method for doing so (hint: the result of design exercise \ref{exercise:voltage_divider} can be usefully adapted to make a measurement). Do the measured $V_{Th}$ and $R_{Th}$ agree with what you expect from your calculations?
+\item Use your voltage divider setup from part 2. Determine experimentally the load resistance which results in the maximum output power out of the voltage divider.
+\item Set the breadboard power supply to 3\,V and determine $V_{Th}$ and $R_{Th}$ of the breadboard power supply for this setting. Before doing your measurements, you should list the potential difficulties of such an experiment (including the uncertainty on the difference of two nearly equal measured voltages). You should also consult with the instructors before attempting it: do not let $I_{out}$ exceed 1.5\,A.  \textbf{Do not, under any circumstances, connect an ammeter or a load resistor less than 1\,\Ohm directly to power supply.}  Comment on the engineering of the power supply. 
+\end{enumerate}
+
+\end{document}

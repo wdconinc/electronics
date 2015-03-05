@@ -1,0 +1,225 @@
+% -*- latex -*-
+% FILE: "/home/evmik/jobs/wm/2011_spring_Analog_Electronics_252/midterm_week_5/phys252_midterm_2010.v2.tex"
+% LAST MODIFICATION: "Wed, 23 Feb 2011 13:36:59 -0500 (evmik)"
+% (C) 2009 by Eugeniy Mikhailov, <evgmik@gmail.com>
+% $Id:$
+
+\documentclass[letterpaper,addpoints,answers]{exam}
+\usepackage{graphicx}
+
+\newcommand{\hide}[1]{%
+}
+
+\begin{document}
+%\pagestyle{headandfoot}
+%\lhead{
+	%\large\bfseries Physics 107\\ 
+	%Midterm Exam, June 15, 2009
+%}
+%\chead{}
+%\rhead{
+	%\large\bfseries Name:\enspace\makebox[2in]{\hrulefill}\\
+	%\large\bfseries Signature:\enspace\makebox[2in]{\hrulefill}
+%}
+%\lfoot{}
+%\cfoot[]{Page \thepage}
+%\rfoot{}
+
+\begin{coverpages}
+	\noindent 
+  \large\bfseries Physics 252
+
+  \vspace{2ex}
+	\noindent 
+  Midterm Exam, Thursday,  February  24, 2011
+
+  \vspace{5ex}
+	\noindent 
+  \large\bfseries Name:\enspace\makebox[2in]{\hrulefill}\\
+
+  \vspace{5ex}
+	\noindent 
+  \large\bfseries Signature:\enspace\makebox[2in]{\hrulefill}
+
+  \vspace{5ex}
+	\noindent 
+	This test is administered under the rules and regulations of the honor 
+	system of the College of William \& Mary.  
+
+  \vspace{5ex}
+	\noindent 
+	Show your work, circle your answers.
+
+
+  \vspace{5ex}
+  \gradetable[v][questions]
+\end{coverpages}
+ 
+\begin{questions}
+
+
+\question
+Consider the filter shown below \\
+\includegraphics[width=0.25\textwidth]{./schematics/rc_high_pass}
+	\begin{parts}
+		\part[5]
+			What is the transfer function absolute value of this filter at
+			$\omega \to 0$ ? \\
+
+			$|G(0)|=$
+		\part[5]
+			What is the transfer function absolute value of this filter at
+			$\omega \to \infty$ ? \\
+
+			$|G(\infty)|=$
+		\part[5]
+			What is the transfer function absolute value of this filter at
+			$\omega = 1/(R C)$ ? \\
+
+			$|G(\frac{1}{R C})|=$
+		\part[5]
+			What kind of filter is it? (band-pass, low-pass, high-pass,
+			band-reject)
+		\part[5]
+			Find the power dissipated by the Resistor if amplitude of the input
+			signal is $V_{in}=2$~V, $R=1$~kOhm, $C=5$~nF, and $\omega = 1/(R
+			C)$.
+			\vskip 3in
+		\part[5]
+			At the same conditions as above.
+			Find the power dissipated by the capacitor? 
+			\vskip 3in
+	\end{parts}
+
+\question
+Consider the voltage divider shown  below.\\
+\includegraphics[width=0.25\textwidth]{./schematics/loaded_voltage_divider}
+	\begin{parts}
+		\part[10]
+			What must be the value of the load resistor $R_L$ to ensure maximum power transfer to
+			it? If $R_1=4$~kOhm and $R_2=6$~kOhm.
+			\vskip 3in
+		\part[10]
+			At the point of the maximum power transfer to the load resistor. What
+			is the value of the current passing through the $R_1$, if $V_{in}=5$~V
+			DC?
+	\end{parts}
+\pagebreak
+
+\question
+You are hired as a research assistant for an electronics lab. Your first
+assignment is to characterize a black box (which seems to be a power
+supply) given to you.  
+You know that someone already performed a series of measurements
+with this box, and found the voltage drop across several load resistors
+connected to the box (see the table below).
+
+\begin{tabular}{|c|c|}
+\hline$R_L$	  &  $V_L$ \\ 
+\hline
+2~kOhm	&  10~V \\
+200~Ohm &  5~V \\
+\hline
+\end{tabular}
+
+	\begin{parts}
+		\part[10]
+			Find the equivalent  Th\'{e}venin voltage  and resistor of
+			this black box. 
+			
+			\vskip 3in
+	\end{parts}
+
+\question
+Design a band-pass filter  which will pass frequency between 10kHz and
+100kHz, with $|G| \ge  0.75$. This filter should attenuate frequencies of
+100~Hz and 10~MHz by at least 20~dB. Use only resistors and capacitors.
+Assume that you will connect this filter to a signal generator with
+an output impedance of 50~Ohm and to a 1~MOhm load resistor.
+	\begin{parts}
+		\part[5]
+			Draw the schematic of the filter
+			\vskip 2in
+
+		\part[5]
+		Where would you put the low-pass 3~dB point? Why?
+		\vskip 1in
+
+		\pagebreak
+		\part[5]
+		Where would you put the high-pass 3~dB point? Why?
+		\vskip 1in
+
+		\part[5]
+		Sketch the magnitude of transfer function vs frequency in logarithmic
+		scale (G must be in dB).
+		\vskip 2in
+
+		\part[10]
+		Provide values for resistors and capacitors.
+		\vskip 2in
+			
+		\part[5]
+		Which part of the filter can you disregard in your
+		calculation at the frequency $f=1000$~MHz? Show a simplified but equivalent
+		schematic at this frequency range.
+		\vskip 2in
+
+		\part[5]
+		What is the approximate value of $G$ measured in dB at
+		$f=1000$~MHz. 
+	\end{parts}
+
+\hide{	
+\pagebreak
+\question
+Consider the circuit shown  below.\\
+			\includegraphics[width=0.45\textwidth]{./schematics/two_lo}
+	
+	\begin{parts}
+		\part[10]
+			Using Kirchhoff's laws write down {\bf symbolically} the full set of equation 
+			which allows you to find all unknown currents, provided that
+			you know all values for resistors and batteries EMF.
+			\vskip 2in
+		\part[10]
+			If $R_1=20$~kOhm, $R_2=10$~kOhm, $R_3=2$~kOhm, $E_1=20$~V, and
+			$E_2=10$~V.
+			Find the currents $I_1, I_2$ and $I_3$.
+			\vskip 3in
+		\part[5]
+			If resistors remain the same as before but $E_1$ and $E_2$ are
+			decreased by factor of 2. What is the new value of $I_2$?
+	\end{parts}
+}
+
+\pagebreak
+\question
+Your experiment apparatus generates useful signal at frequency $f_s = 1$~kHz 
+with amplitude voltage $V_s=.1$~V, unfortunately extremely strong
+noise couples at frequency $f_n=10$~kHz with amplitude $V_n=10$~V.
+
+	\begin{parts}
+		\part[5]
+			What is signal to noise ration (SNR) comming from the apparatus.
+			\vskip 1in
+		\part[5]
+			In a rush to improve quality of the signal (i.e. SNR) you searched
+			through the lab and find a low-pass filter with $f_{3dB} = 0.1$~kHz.
+
+			What is the SNR after at the output of this filter (use linear scale
+			not dB to present your answer)? Is it a good filter for the job?
+			\vskip 2in
+		\part[10]
+			If it up to you to design a filter, where is the optimal point for
+			$f_{3dB}$ of the low-pass filter at this conditions? Prove it. 
+			\vskip 3in
+		\part[5]
+			Find the SNR for the improved filter which you just designed (use
+			linear scale not dB to present your answer).
+	\end{parts}
+
+\end{questions}
+\end{document}
+
+% vim:fdm=marker tabstop=2 shiftwidth=2

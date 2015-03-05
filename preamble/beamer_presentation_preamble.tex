@@ -1,0 +1,143 @@
+%\includeonlyframes{draft}
+% This file is a solution template for:
+
+% below to make handout 
+%\usepackage{pgfpages}
+%\pgfpagesuselayout{4 on 1}[letterpaper,landscape, border shrink=5mm]
+
+% This file is a solution template for:
+
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+\usepackage[subpreambles=true]{standalone}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usetikzlibrary{arrows,shapes,trees,fadings}
+
+% Copyright 2004 by Till Tantau <tantau..
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+\mode<presentation>
+{
+  \usetheme{Madrid}  % for short upt to 20min presentation
+  \setbeamercovered{transparent}
+
+  \setbeamertemplate{footline}%
+  {%
+    \leavevmode%
+    \hbox{%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,left]{}%
+      \hspace*{1ex} \insertlogo
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,right]{}%
+      \insertframenumber{} \hspace*{1ex}
+    \end{beamercolorbox}}%
+    \vskip0pt%
+  }
+
+  % No navigation symbols
+  \setbeamertemplate{navigation symbols}{}
+}
+
+
+\usepackage[english]{babel}
+% or whatever
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+% below we add drawing macroses
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes}
+\usetikzlibrary{fadings}
+\usepackage{listings}
+\usepackage{amsmath}
+
+
+
+%\setbeamercovered{transparent}
+\setbeamercovered{invisible}
+
+
+
+%\subtitle
+%{Include Only If Paper Has a Subtitle}
+
+\author[W. Deconinck] % (optional, use only with lots of authors)
+{
+  Wouter Deconinck
+}
+
+
+%{Wouter Deconinck\inst{1} \and S.~Another\inst{1}}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as 
+
+%remember extension must be ommited
+\pgfdeclareimage[height=1cm]{wm-wordmark-stacked}{../styles/wm_wordmark_stacked_green}
+%\logo{\pgfuseimage{wm-wordmark-stacked}}
+
+\institute[W\&M] % (optional, but mostly needed)
+{
+  \pgfuseimage{wm-wordmark-stacked}
+}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+%\beamerdefaultoverlayspecification{<+->}
+
+%
+\newcommand{\fixme}[1]{%
+  { \em ---! FixMe #1 !---}
+}
+%
+\newcommand{\hide}[1]{%
+}
+%
+\newcommand{\mat}[1]{% matlab code
+{\color{blue}\texttt{#1}}%
+}
+%
+\newcommand{\mstr}[1]{% matlab code string
+{\color{magenta}#1}%
+}
+
+% {{{ listing color schem definitions
+\definecolor{listcommentcolor}{rgb}{0.0,0.4,0} %dark green
+%\definecolor{listbg}{rgb}{0.67,0.90,0.64} %pale green
+\definecolor{listbg}{rgb}{0.90,0.90,0.90} %kight grey
+\lstset{backgroundcolor=\color{listbg}}
+\lstset{commentstyle=\color{listcommentcolor}}
+\lstset{keywordstyle=\color{blue}}
+\lstset{stringstyle=\color{magenta}}
+\lstset{language=matlab}
+\lstset{tabsize=2}
+\lstset{showstringspaces=false}
+\lstset{basicstyle = \ttfamily}
+% }}}
+

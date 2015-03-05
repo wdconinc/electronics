@@ -1,0 +1,38 @@
+\documentclass{article}
+
+
+% This file is a solution template for:
+\input{../preamble/lab_preamble.tex}
+
+
+\title{Electronic Circuit Simulation and Layout Software}
+
+
+\begin{document}
+\maketitle
+
+\section{Lab 6: Electronic Circuit Simulation and Layout Software}
+
+\subsection*{General comments}
+
+\begin{itemize}
+\item 5Spice is only available for Windows.  It should be run as freeware.
+\item EAGLE is available for Windows, Mac, Linux.  It should be run as freeware.  Installation in Windows requires that all previous versions are removed by hand first.
+\end{itemize}
+
+\subsection{5Spice}
+\begin{itemize}
+\item The freeware 5Spice license does not allow $x$ vs $y$ plots, nor does it allow copy \& paste or exporting of the table of results in a sweep.  Other solutions have to be found to achieve similar goals.
+\item The diode model 1N4007 seems to have issues.
+\item Simulations of high-frequency signals will need to use an explicit minimum step size at least 10 times smaller than the period of oscillation to avoid aliasing.
+\item Measuring the ripple on the rise of a charging capacitor can be done by taking the average of the min/max differences for two consecutive minima around one maximum.  This should be compared to the steady-state voltage, though.
+\end{itemize}
+
+\subsection{EAGLE}
+\begin{itemize}
+\item Not terribly important to be detailed here, just get the students to do \emph{something}.
+\item Discourage the students from using pre-packaged rectifiers.  Instead, they should use individual diodes.
+\end{itemize}
+
+
+\end{document}
