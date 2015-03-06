@@ -1,0 +1,47 @@
+%! PostScript set of library objects for XCircuit
+%  Version: 3.6
+%  Library name is: 
+%  Author: Eugeniy Mikhailov,,, <evmik@beam>
+%
+
+% Depend ::Ampmeter_h ::user_object
+
+% XCircuitLib library objects
+/::Ampmeter {
+begingate
+1 1.000 0 0 32 0.000 360.000 xcarc
+(A) {/Helvetica cf} 2 16 0 1.000 -13 -12 label
+1 1.000 0 32 0 48 2 polygon
+1 1.000 0 -32 0 -48 2 polygon
+endgate
+} def
+
+/::Ampmeter_h {
+begingate
+1 1.000 0 0 32 0.000 360.000 xcarc
+1 1.000 -32 0 -48 0 2 polygon
+1 1.000 32 0 48 0 2 polygon
+(A) {/Helvetica cf} 2 16 0 1.000 -13 -11 label
+endgate
+} def
+
+/::Voltmeter_h {
+begingate
+1 1.000 0 0 32 0.000 360.000 xcarc
+1 1.000 -32 0 -48 0 2 polygon
+1 1.000 32 0 48 0 2 polygon
+(V) {/Helvetica cf} 2 16 0 1.000 -14 -14 label
+endgate
+} def
+
+/::Voltmeter {
+begingate
+1 1.000 0 0 32 0.000 360.000 xcarc
+1 1.000 0 32 0 48 2 polygon
+1 1.000 0 -32 0 -48 2 polygon
+(V) {/Helvetica cf} 2 16 0 1.000 -15 -12 label
+endgate
+} def
+
+
+% EndLib
