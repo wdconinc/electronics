@@ -1,8 +1,9 @@
 \documentclass{book}
 
-\usepackage{standalone}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{import}
 
-\include{preamble/lab_preamble}
+\import{preamble/}{lab_preamble}
 
 \title{Electronics}
 \date{Spring 2015}
@@ -11,44 +12,43 @@
 \begin{document}
 \maketitle
 
-\include{calendar}
+\import{./}{calendar}
 
 \tableofcontents
 
 \chapter{Voltage, Current, Resistance, and Power}
-%\include{lecture01/lecture01_handouts}
-\graphicspath{{lab01/}}
-\include{lab01/lab01}
-\include{lab01/notes01}
+%\import{lecture01/lecture01_handouts}
+\import{lab01/}{lab01}
+\import{lab01/}{notes01}
 
-\chapter{Kirchhoff, Th\'{e}venin, and Impedance Matching}
-%\include{lecture02/lecture02_handouts}
-\graphicspath{{lab02/}}
-\include{lab02/lab02}
-\include{lab02/notes02}
+% \chapter{Kirchhoff, Th\'{e}venin, and Impedance Matching}
+% %\import{lecture02/lecture02_handouts}
+% \graphicspath{{lab02/}}
+% \import{lab02/lab02}
+% \import{lab02/notes02}
 
-\chapter{AC Signals, Complex Impedance, and Phase}
-%\include{lecture03/lecture03_handouts}
-\graphicspath{{lab03/}}
-\include{lab03/lab03}
-\include{lab03/notes03}
+% \chapter{AC Signals, Complex Impedance, and Phase}
+% %\import{lecture03/lecture03_handouts}
+% \graphicspath{{lab03/}}
+% \import{lab03/lab03}
+% \import{lab03/notes03}
 
-\chapter{Passive Filters}
-%\include{lecture04/lecture04_handouts}
-\graphicspath{{lab04/}}
-\include{lab04/lab04}
-\include{lab04/notes04}
+% \chapter{Passive Filters}
+% %\import{lecture04/lecture04_handouts}
+% \graphicspath{{lab04/}}
+% \import{lab04/lab04}
+% \import{lab04/notes04}
 
-\chapter{Diodes}
-%\include{lecture05/lecture05_handouts}
-\graphicspath{{lab05/}}
-\include{lab05/lab05}
-\include{lab05/notes05}
+% \chapter{Diodes}
+% %\import{lecture05/lecture05_handouts}
+% \graphicspath{{lab05/}}
+% \import{lab05/lab05}
+% \import{lab05/notes05}
 
-\chapter{Circuit Simulation and Layout Software}
-%\include{lecture06/lecture06_handouts}
-\graphicspath{{lab06/}}
-\include{lab06/lab06}
-\include{lab06/notes06}
+% \chapter{Circuit Simulation and Layout Software}
+% %\import{lecture06/lecture06_handouts}
+% \graphicspath{{lab06/}}
+% \import{lab06/lab06}
+% \import{lab06/notes06}
 
 \end{document}

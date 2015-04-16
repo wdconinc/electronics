@@ -1,0 +1,43 @@
+\documentclass{article}
+
+\usepackage{import}
+\subimport{../preamble/}{lab_preamble.tex}
+
+\title{Op Amp Circuits for Detectors, Filters, and Power Applications}
+
+
+\begin{document}
+\maketitle
+
+\section{Lab 9: Op Amp Circuits for Detectors, Filters, and Power Applications}
+
+\subsection*{General comments}
+
+\begin{itemize}
+\item Have the students look up the polarity of the photodiodes in the spec sheets.  The wires are red for cathode (negative) and black for anode (positive).  This is counter-intuitive is you want to put the photodiode in reverse bias (you need to connect red to the positive bias voltage and black to ground).
+\end{itemize}
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](ref){};
+\draw (0,4) node[op amp](inp){};
+\draw (6,2) node[op amp](diff){};
+\draw (inp.+) node[ground]{};
+\draw (inp.-) node[circ]{} to[R,l=100k] ++(-2,0) to[short,-o] ++(0,1) node[above]{5V};
+\draw (ref.+) node[ground]{};
+\draw (ref.-) node[circ]{} to[R,l=100k] ++(-2,0) to[short,-o] ++(0,1) node[above]{5V};
+\draw (inp.out) node[circ]{} to[short] ++(0,1.5) to[vR,l=$R_{th}$] ++(-2,0) -| (inp.-);
+\draw (ref.out) node[circ]{} to[short] ++(0,1.5) to[R,l=10k] ++(-2,0) -| (ref.-);
+\draw (diff.-) node[circ]{} to[R,l=10k] ++(-2,0) |- (inp.out);
+\draw (diff.+) node[circ]{} to[R,l=10k] ++(-2,0) |- (ref.out);
+\draw (diff.+) to[R,l=220k] ++(0,-2) node[ground]{};
+\draw (diff.out) node[circ]{} to[short] ++(0,1.5) to[R,l=220k] ++(-2,0) -| (diff.-);
+\draw (diff.out) to[short,-o] ++(0.5,0) node[right]{$V_{out}$};
+\end{circuitikz}
+\end{center}
+\caption{One possible solution to the temperature measurement with a thermistor with $R_{th} = 10\mbox{k} (1 - 4.4 \frac{\%}{^\circ{}C} (T - T_0))$, resulting in $V_{out} = 5\,\mbox{V} \cdot \frac{220\mbox{k}}{10\mbox{k}} \frac{10\mbox{k}}{100\mbox{k}} (1 - \frac{R_{th}}{10\mbox{k}})$ or $V_{out}(T) = 5\,\mbox{V} \cdot 4.4 \frac{\%}{^\circ{}C} \frac{220\mbox{k}}{100\mbox{k}} (T - T_0) = 0.484 \frac{\mbox{V}}{^\circ{}C} \cdot (T - T_0)$.  The current through $R_{th}$ will be 0.05\,mA, and the power dissipated will be 0.025\,mW at $R_{th} = 10\mbox{k}$.}
+\end{figure}
+
+
+\end{document}

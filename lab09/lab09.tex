@@ -1,0 +1,346 @@
+\documentclass{article}
+
+
+% This file is a solution template for:
+\input{../preamble/lab_preamble.tex}
+
+
+\title{Op Amp Circuits for Detectors, Filters, and Power Applications}
+
+
+\begin{document}
+\maketitle
+
+We can improve the performance of most of the circuits we have built in this course, including RC circuits and rectifiers, by using op amps and negative feedback.
+
+\section{Active Filters}
+\subsection{RC Integrator and Low Pass Filters}
+Recall that a low pass circuit was an integrator for high frequencies. The RC integrator we built in the laboratory was limited as an integrator because the current charging the capacitor changed as the capacitor charged up. This meant that the circuit integrated only for small voltages. 
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (opamp.+) to[short] ++(-0.5,0) node[ground]{};
+\draw (opamp.-) to[short] ++(-0.5,0) node[circ](jIN){} to[R,l=$R$,-o] ++(-2,0) node[left]{$v_{in}$};
+\draw (opamp.out) to[short] ++(0.5,0) node[circ](jOUT){} to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (jIN) to[short] ++(0,1) node[circ](rIN){};
+\draw (jOUT) to[short] ++(0,1.5) node[circ](rOUT){};
+\draw (rIN) |- (-1,1.5) to[C,l=$C$] ++(2,0) -| (rOUT);
+\draw (rIN) |- (-1,3.0) to[R,l=$R_f$] ++(2,0) -| (rOUT);
+\end{circuitikz}
+\end{center}
+\caption{Op amp integrator with low-frequency limit.}
+\label{fig:integrator}
+\end{figure}
+
+By putting an integrating capacitor into the op amp feedback loop, you force the input side of the capacitor to always be at the same voltage (virtual ground) so the input current no longer depends on how much charging it has done. This integrator works all the way up to the maximum output of the op amp. For the circuit shown in Figure~\ref{fig:integrator}, the output will be:
+\begin{equation}
+v_{out} = - \frac{1}{RC} \int v_{in} dt.
+\end{equation}
+
+Of course, you must limit the low frequency behavior, or else the integrator will always be at the rail as it integrates any small offset voltage. This is done by putting in an extra resistor that will slowly bleed the charge of the capacitor over the time. 
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (opamp.+) to[short] ++(-0.5,0) node[ground]{};
+\draw (opamp.-) to[short] ++(-0.5,0) node[circ](jIN){} to[C,l=$C$,-o] ++(-2,0) node[left]{$v_{in}$};
+\draw (opamp.out) to[short] ++(0.5,0) node[circ](jOUT){} to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (jIN) |- (-1,1.5) to[R,l=$R$] ++(2,0) -| (jOUT);
+\end{circuitikz}
+\end{center}
+\caption{Op amp differentiator.}
+\label{fig:differentiator}
+\end{figure}
+
+\subsection{RC Differentiator and High Pass Filters}
+Putting the capacitor at the input, and using a feedback resistor, you can construct an accurate differentiator. This time, your op amp will be stable with no input (if it has been internally compensated). For our circuit in Figure~\ref{fig:differentiator}, the output is: 
+\begin{equation}
+v_{out} = -RC \frac{dv_{in}}{dt}.
+\end{equation}
+
+Note, though, that it has limited gain at high frequencies that will degrade its performance for fast derivatives.
+
+\section{Current Sources}
+The inherent negative feedback present in op amp circuits is ideal for making high-impedance constant current sources. (Why do ideal current sources have a high output impedance?)
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp,yscale=-1](opamp){};
+\draw (opamp.+) to[short,-o] ++(-0.5,0) node[left]{$v_{ctrl}$};
+\draw (opamp.-) -| ++(-0.5,-1) node[circ](j){} to[R,l=$R_1$] ++(0,-2) node[ground]{};
+\draw (j) to[ammeter] ++(1.5,0) to[R,l=$R_L$] ++(2,0) |- (opamp.out);
+\end{circuitikz}
+\end{center}
+\caption{Current source.}
+\label{fig:current_source}
+\end{figure}
+
+\subsection{Op Amp Current Source}
+A current source can be made from an inverting amplifier as shown in Figure~\ref{fig:current_source}. The current in the load resistor must be the same as that in $R_1$. The current is then just the input voltage divided by $R_1$.
+
+\begin{figure}
+\begin{center}
+\begin{subfigure}{0.4\textwidth}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp,yscale=-1](opamp){};
+\draw (2,0) node[npn](npn){};
+\draw (opamp.+) to[short,-o] ++(-0.5,0) node[left]{$v_{ctrl}$};
+\draw (opamp.out) -| (npn.base);
+\draw (npn.collector) to[R,l=$R_L$,-o] ++(0,2) node[above]{$V_{supply}$};
+\draw (npn.emitter) to[short] ++(0,-0.5) node[circ](R){} to[R,l=$R$] ++(0,-2) node[ground]{};
+\draw (opamp.-) to[short] ++(-0.5,0) |- (R);
+\end{circuitikz}
+\end{center}
+\caption{npn transistor}
+\label{fig:constant_current_source:npn}
+\end{subfigure}
+\begin{subfigure}{0.4\textwidth}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (2,0) node[pnp,yscale=-1](pnp){};
+\draw (opamp.+) to[short,-o] ++(-0.5,0) node[left]{$v_{ctrl}$};
+\draw (opamp.out) -| (pnp.base);
+\draw (pnp.emitter) to[R,l=$R_L$] ++(0,-2) node[ground]{};
+\draw (pnp.collector) to[short] ++(0,0.5) node[circ](R){} to[R,l=$R$,-o] ++(0,2) node[above]{$V_{supply}$};
+\draw (opamp.-) to[short] ++(-0.5,0) |- (R);
+\end{circuitikz}
+\end{center}
+\caption{pnp transistor}
+\label{fig:constant_current_source:pnp}
+\end{subfigure}
+\end{center}
+\caption{Constant current source based on npn and pnp transistors.}
+\label{fig:constant_current_sources}
+\end{figure}
+
+\subsection{Op Amp and Transistor Current Source}
+An op amp can be combined with a transistor to make a current source in which the load is outside the feedback loop, as depicted in Figure~\ref{fig:constant_current_sources}. The NPN transistor transistor can be replaced by a N-JFET or a N-MOSFET transistor. The FET based circuits will have slightly better current regulation, and a MOSFET should be used for high current applications.
+
+\subsection{Op Amp and Transistor Current Source for Grounded Loads}
+The two previous circuits are excellent current sources in Figures~\ref{fig:current_source} and~\ref{fig:constant_current_source:npn}, but they require that the load be at some voltage above ground. Frequently, one side of the load must be grounded and in this case another similar circuit is required. Figure~\ref{fig:constant_current_source:pnp} shows the circuit diagram for a constant current source with grounded load based on a PNP. The PNP transistor can be replaced by a P-JFET or P-MOSFET for high current applications.
+
+\section{Op Amp Power Amplifiers}
+op amps are quasi-perfect amplifiers, but they cannot source and sink a lot of current, which is necessary in high power applications. The combination of an op amp with one or more transistors can produce a high-quality amplifier. The high-impedance input of the op amp provides high fidelity signal measurement and gain, while the output transistors provide high-current. The inclusion of the output transistors in the op amp feedback loop helps linearize amplifier performance.
+
+\subsection{Op Amp with Emitter-Follower}
+An op amp and an NPN emitter-follower (see a previous chapter) can be combined to make a class A power amplifier as depicted in Figure~\ref{fig:non_inverting_amplifier}. Since the NPN transistor can only source current (i.e. the current can only go from collector to emitter), the input of the op amp $v_{in}$ must still have a positive bias. 
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp,yscale=-1](opamp){};
+\draw (2,0) node[npn](npn){};
+\draw (opamp.+) to[short,-o] ++(-0.5,0) node[left]{$v_{ctrl}$};
+\draw (opamp.-) -| ++(-0.5,-1) node[circ](in){} to[R,l=$R_1$] ++(0,-2) node[ground]{};
+\draw (opamp.out) -| (npn.base);
+\draw (npn.collector) to[short,-o] ++(0,0.5) node[above]{$V_{supply}$};
+\draw (npn.emitter) to[short] ++(0,-0.72) node[circ](out){} to[R,l=$R_3$] ++(0,-2) node[ground]{};
+\draw (out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (in) to[R,l=$R_2$] (out);
+\end{circuitikz}
+\end{center}
+\caption{Non-inverting amplifier with emitter-follower in feedback loop.}
+\label{fig:non_inverting_amplifier}
+\end{figure}
+
+\subsection{Op Amp with Push-Pull Buffer}
+The push-pull amplifier we saw in a previous chapter can also be incorporated in the feedback loop of an op amp inverting amplifier to make the class B bipolar power amplifier shown in Figure~\ref{fig:bipolar_amplifier}. The feedback loop automatically removes the cross-over distortion due to the 0.6\,V diode drops so long as the slew rate of the op amp can keep up.
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (2.5,+1.5) node[npn](npn){};
+\draw (2.5,-1.5) node[pnp](pnp){};
+\draw (opamp.+) to[short] ++(-0.5,0) node[ground]{};
+\draw (opamp.-) to[short] ++(-0.5,0) node[circ](in){} to[R,l=$R_1$] ++(-2,0) node[left]{$v_{in}$};
+\draw (opamp.out) to[short] ++(0.5,0) node[circ](base){};
+\draw (base) |- (npn.base);
+\draw (base) |- (pnp.base);
+\draw (npn.collector) to[short,-o] ++(0,0.5) node[above]{$V_{+}$};
+\draw (npn.emitter) to[short] ++(0,-0.5) node[circ](out){} to[short] (pnp.emitter);
+\draw (pnp.collector) to[short,-o] ++(0,-0.5) node[below]{$V_{-}$};
+\draw (in) |- (-1,2) to[R,l=$R_2$] (+1,2) |- (out) to[short] ++(1,0) node[circ](load){} to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (load) to[R,l=$R_L$] ++(0,-2) node[ground]{};
+\end{circuitikz}
+\end{center}
+\caption{Inverting amplifier with a push-pull buffer inside the feedback loop.}
+\label{fig:bipolar_amplifier}
+\end{figure}
+
+\subsection{Op Amp Rectifiers}
+If you put a diode in the feedback loop of an op amp (along with a resistor to let the inverting input float), you can build a rectifier that eliminates the problems for voltages less than 0.6\,V as the diode turns on (see Figure~\ref{fig:opamp_rectifier:regular}). 
+
+The improved rectifier circuit (see Figure~\ref{fig:opamp_rectifier:improved}) keeps the output of the op amp from being driven to the rails when the circuit is blocking the wrong sign input. Since your op amp has a limited slew rate, this improves performance. It also eliminates the 0.6\,V offset that a single diode introduces. 
+
+\begin{figure}
+\begin{center}
+\begin{subfigure}{0.4\textwidth}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (opamp.out) to[diode] ++(0,2) node[circ](out){};
+\draw (opamp.+) to[short,-o] ++(-0.5,0) node[left]{$v_{in}$};
+\draw (opamp.-) node[circ](in){} to[R,l=$R_1$] ++(-2,0) node[ground]{};
+\draw (out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (out) -| (in);
+\end{circuitikz}
+\end{center}
+\caption{Op amp rectifier.}
+\label{fig:opamp_rectifier:regular}
+\end{subfigure}
+\begin{subfigure}{0.4\textwidth}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (opamp.out) node[circ]{} to[short] ++(1.5,0) to[diode] ++(0,2) node[circ](out){};
+\draw (opamp.+) to[short] ++(-0.5,0) node[ground]{};
+\draw (opamp.-) node[circ](in){} to[R,l=$R_1$,-o] ++(-2,0) node[left]{$v_{in}$};
+\draw (out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (opamp.-) to[short] ++(0,1) node[circ](diode){} to[diode] ++(1.5,0) -| (opamp.out);
+\draw (out) to[R,l=$R_2$] ++(-2,0) -| (diode);
+\end{circuitikz}
+\end{center}
+\caption{Improved op amp rectifier.}
+\label{fig:opamp_rectifier:improved}
+\end{subfigure}
+\end{center}
+\caption{Op amp rectifiers.}
+\label{fig:opamp_rectifiers}
+\end{figure}
+
+
+\section{Photodiodes}
+Photodiodes are a type of diode which produce a reverse bias current when their PN junction is illuminated. The photo-current is proportional to the number of incident photons with quantum efficiencies of 0.5-0.9 photo-electrons per incident photon.
+
+\subsection{High sensitivity photo-diode circuits}
+The simplest way to read the current on a photodiode is to convert it to a voltage with a resistor as shown in Figure~\ref{fig:photodiode_resistive}. This circuit is very simple, but has the disadvantage that the resistor loads the photodiode which must produce a voltage across the resistor. The photodiode also has a capacitance proportional to its area which will also determine time response ($\tau = RC$): as this simple circuit makes clear, you cannot have high sensitivity and high speed at the same time.
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (2,0) node[ground]{} to[R,l=$R_L$] ++(0,2) node[circ](out){} to[short] ++(-2,0) to[photodiode,mirror,i<_=$i_{PD,reverse}$] (0,0) node[ground]{};
+\draw (out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\end{circuitikz}
+\end{center}
+\caption{Photodiode with a resistive current-to-voltage converter.}
+\label{fig:photodiode_resistive}
+\end{figure}
+
+As the voltage which the photodiode must produce becomes larger, the output current of the photodiode no longer remains proportional to the light intensity. An op amp remedies this problem by keeping the voltage across the photodiode equal to zero for all light intensities, while also amplifying the signal in the current-to-voltage converter circuit of Figure~\ref{fig:photodiode_opamp}.
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (-1.2,-1) node[ground]{} |- (opamp.+);
+\draw (-2.5,-1) node[ground]{} to[photodiode,i^<=$i_{PD,reverse}$] ++(0,+1.5) |- (opamp.-);
+\draw (opamp.out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (opamp.out) node[circ]{} to[short] ++(0,1.5) to[R,l=$R$] ++(-2,0) -| (opamp.-) node[circ]{};
+\end{circuitikz}
+\end{center}
+\caption{Photodiode with an op amp current-to-voltage inverting amplifier.}
+\label{fig:photodiode_opamp}
+\end{figure}
+
+\subsection{High speed photo-diode circuits}
+The PN junction capacitance of the photodiode can be reduced significantly by using a reverse-bias voltage on the photodiode, as shown in the circuit diagram on the right (Figure~\ref{fig:photodiode_reverse_bias}). Since the capacitance drops, so does the time response (still $\tau = RC$) of the photodiode. In practice, the fastest photodiodes have very small detection areas and are operated in reverse-biased mode with small load resistors. While reverse biasing helps to improve the time response of the photodiode to fast signals, it also reduces its sensitivity to very weak light signals, since the reverse bias voltage also drives a small leakage current across the PN junction. This larger leakage current, or dark current, has noise associated with it which limits the sensitivity of the photodiode at very low light levels.
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (2,0) node[ground]{} to[R,l=$R_L$] ++(0,2) node[circ](out){} to[short] ++(-2,0) to[photodiode,i<^=$i_{PD,reverse}$,-o] ++(0,2) node[above]{$V_{cc}$};
+\draw (out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\end{circuitikz}
+\end{center}
+\caption{Photodiode in reverse-bias configuration with resistive load.  Compare with Figure~\ref{fig:photodiode_resistive}.}
+\label{fig:photodiode_reverse_bias}
+\end{figure}
+
+One problem with the simple reverse-bias circuit of Figure~\ref{fig:photodiode_reverse_bias} is that as the photo-current increases at higher light intensities, the effective biasing voltage across the PN junction changes as well, which introduces a non-linear response into the behavior of the photo-detector. An op amp can be used to keep the photodiode reverse-bias voltage constant for all illumination intensities, while also converting the photo-current to an amplified voltage (see Figure~\ref{fig:photodiode_reverse_bias_opamp}).
+
+In practice, the capacitance of the photodiode can send the op amp into oscillation, so a small feedback capacitor is frequently added in parallel with the feedback resistor $R$.
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (-1.2,-1) node[ground]{} |- (opamp.+);
+\draw (-2.5,+0.5) to[photodiode,i<^=$i_{PD,reverse}$,-o] ++(0,2) node[above]{$V_{cc}$};
+\draw (-2.5,+0.5) |- (opamp.-);
+\draw (opamp.out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (opamp.out) node[circ]{} to[short] ++(0,1.5) to[R,l=$R$] ++(-2,0) -| (opamp.-) node[circ]{};
+\end{circuitikz}
+\end{center}
+\caption{Amplified photodiode in reverse-bias configuration.}
+\label{fig:photodiode_reverse_bias_opamp}
+\end{figure}
+
+
+\pagebreak
+
+\section{Design Exercises}
+
+\begin{enumerate}
+% \item Analyze the push-pull amplifier shown in figure 10.13 below and explain the purpose of the diodes. What are reasonable values for $R$?
+
+% Following code is incorrect for the circuit in question...
+% \begin{figure}
+% \begin{center}
+% \begin{circuitikz}
+% \draw (-1,0) node[circ](base){};
+% \draw (0,+1.5) node[npn](npn){};
+% \draw (0,-1.5) node[pnp](pnp){};
+% \draw (base) to[diode] ++(0,+1) |- (npn.base);
+% \draw (base) to[diode] ++(0,-1) node[circ](pnpdiode){} |- (pnp.base);
+% \draw (npn.collector) to[short,-o] ++(0,0.5) node[above]{$V_{+}$};
+% \draw (npn.emitter) to[short] ++(0,-0.5) node[circ](out){} to[short] (pnp.emitter);
+% \draw (pnp.collector) to[short,-o] ++(0,-0.5) node[below]{$V_{-}$};
+% \draw (in) |- (-1,2) to[R,l=$R_2$] (+1,2) |- (out) to[short] ++(1,0) node[circ](load){} to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+% \draw (load) to[R,l=$R_L$] ++(0,-2) node[ground]{};
+% \end{circuitikz}
+% \end{center}
+% \caption{Improved push-pull transistor amplifier.}
+% \label{fig:improved_push_pull}
+% \end{figure}
+
+\item Design an op amp based high-sensitivity photodiode amplifier for a photodiode with a PN capacitance of 150\,pF. The amplifier should have a gain of 1\,V/$\mu$A. What is the response speed (i.e. time constant) of the photodiode-amplifier combination?
+
+\item Design an op amp based high-speed photodiode amplifier. Use a reverse-bias configuration with a bias voltage of +15\,V. We will assume that the biasing reduces the PN capacitance to 40\,pF. The amplifier should have a gain of 1\,V/$\mu$A. What is the response speed (i.e. time constant) of the photodiode-amplifier combination?
+
+\item Design an op amp-based 10\,$\mu$A constant current source in which the load is not grounded. The design may include additional semiconductor components which we have previously used in lab, if you wish.
+
+\item \label{ex:thermistor} The TH10K thermistor is a type of silicon-based resistor which has a resistance of 10\,k\Ohm at $25^\circ$C, but whose resistance (counter-intuitively) changes by -4.4\% per $^\circ$C. Design a circuit using the TH10K thermistor and any number of opamps and resistors such that at room temperature the output voltage is linear with any change in temperature. Design a circuit in which the output voltage changes by about 0.5\,V per $^\circ$C over the range $0^\circ\mbox{C}$--$50^\circ\mbox{C}$ and can drive a 5\,k\Ohm load or larger with minimal effect on the output voltage. You should keep the power dissipated by the thermistor well below 1\,mW to avoid self-heating.
+\end{enumerate}
+
+\section{Lab: Op Amps and Detectors}
+
+This week's lab focuses on using op amps and detectors together for high-quality measurements. In particular, we will focus on using op amps with photodiode detectors and thermistor temperature sensors.
+
+\begin{enumerate}
+\item Construct an LED pulsing light source from a red LED (Light Emitting Diode) and the function generator. Set the function generator to 5\,V pk-pk with the low voltage set to 0\,V. Attach the LED directly to the function generator and see if it flashes when the function generator frequency is set to 10\,Hz.
+
+\item \label{ex:photodiode_resistive} Use an FDS100 Thorlabs photodiode to construct the circuit of Figure~\ref{fig:photodiode_resistive} such that the current-to-voltage conversion is 10 mV/$\mu$A. Install the photodiode and the red LED in front of each other to maximize the amount of emitted light incident on the photodiode---fasten the photodiode and the LED securely so that they will not move. Also, you should make sure that the LED is not saturating the photodiode. Measure the rise time and fall time of the photo-current signal. You may increase the frequency on the function generator.
+
+Assuming that the LED turn-on and turn-off is instantaneous (a high-speed detector gave about 100\,ns), determine the capacitance of the photodiode.
+
+\item In the same manner as part~\ref{ex:photodiode_resistive}, construct the circuit of Figure~\ref{fig:photodiode_reverse_bias} such that the current-to-voltage conversion is 10\,mV/$\mu$A and the bias voltage is +15\,V. Measure the rise time and fall time of the photo-current signal. Estimate the capacitance of the photodiode. Repeat for the bias voltage values equal to (+2\,V, +5\,V, +8\,V, +11\,V).
+
+\item \begin{enumerate}
+\item In the same manner as part~\ref{ex:photodiode_resistive}, construct the circuit of Figure~\ref{fig:photodiode_opamp} or Figure~\ref{fig:photodiode_reverse_bias_opamp} (you pick) with an LM741CN op amp and a gain of 10\,mV/$\mu$A. Measure the rise time and fall time of the photo-current signal, and estimate the effective capacitance of the photodiode.
+\item Replace the LM741CN op amp with an OP27 or LT1498 (watch out LT1498 has different pin out) op amp. Do you see any difference? Does the output oscillate? If it does, can you reduce it?  Measure the rise time and fall time, and estimate the capacitance of the photodiode.
+\end{enumerate}
+
+\item Thermometer.
+Construct the circuit you designed for Design Exercise~\ref{ex:thermistor} and roughly estimate the temperature-to-voltage coefficient (V/$^\circ$C)  in order to calibrate you thermometer. Verify that the output voltage can drive load resistors of 5\,k\Ohm or more with little effect on the output voltage.
+\end{enumerate}
+
+Construction advice: Your circuits are probably made up of a number of smaller subcircuits, so make and test these sub-units first before hooking them together.
+
+\end{document}

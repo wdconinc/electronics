@@ -1,9 +1,7 @@
 \documentclass{article}
 
-
-% This file is a solution template for:
-\input{../preamble/lab_preamble.tex}
-
+\usepackage{import}
+\subimport{../preamble/}{lab_preamble.tex}
 
 \title{Capacitors, Inductors, and Complex Impedance}
 
@@ -170,7 +168,7 @@ This is relatively simple because it shows up so often in physics that you might
 
 We can obtain the solution by using the standard recipe for first order linear differential equations. We start by rewriting equation as
 \begin{equation}
-\frac{di}{dt} + \frac{1}{R C} I = j \omega \frac{1}{R} V_0 e^{j \omega t}
+\frac{di}{dt} + \frac{1}{R C} i = j \omega \frac{1}{R} V_0 e^{j \omega t}
 \end{equation}
 which we then multiply by $e^{t/RC}$ to obtain
 \begin{equation}

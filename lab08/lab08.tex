@@ -1,0 +1,227 @@
+\documentclass{article}
+
+
+% This file is a solution template for:
+\input{../preamble/lab_preamble.tex}
+
+
+\title{Operational Amplifiers}
+
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+The \emph{operational amplifier} (or \emph{op-amp}) is the ideal simple amplifier. It is an \emph{integrated circuit (IC)}. An IC contains many discrete components (resistors, capacitors, and transistors) all made at the same time on the same piece of silicon and put into a standardized package. Most of the circuit design has already been done for you, so they are particularly easy to use. An op-amp has (almost) infinite input impedance, very low output impedance, and extremely high gain ($10^5$ is typical). Since the gain of these devices is so large, you will almost never use them as simple amplifiers. Instead, you will reduce the gain, and make it more stable, using negative feedback. 
+
+So, you might ask, why did we not start here, and skip all the components that go into the op-amp? Well, op-amps require two power supplies (usually $\pm 15$\,V), and they cannot dissipate too much power. If you have a very simple job or high power, a transistor is better. If you find yourself putting together several elements then you should probably be using an op-amp.
+
+\section{Op-amps}
+An op-amp has two inputs, the inverting input ($v_-$) and the non-inverting input ($v_+$), and one output, as shown in Figure~\ref{fig:opamp}. The fundamental relation governing the operation of an op-amp is that the output is the open loop gain ($A$) times the difference between these input voltages:
+\begin{equation}
+v_{out} = A(v_+ - v_-).
+\end{equation}
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (opamp.+) to[short,-o] ++(-0.5,0) node[left]{$v_+$};
+\draw (opamp.-) to[short,-o] ++(-0.5,0) node[left]{$v_-$};
+\draw (opamp.out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (opamp.down) ++(0,-0.5) node[below]{\SI{-15}{\volt}} -- (opamp.down);
+\draw (opamp.up) ++(0,0.5) node[above]{\SI{15}{\volt}} -- (opamp.up);
+\end{circuitikz}
+\end{center}
+\caption{An op-amp.}
+\label{fig:opamp}
+\end{figure}
+
+Since the gain is so large, this effectively requires that $v_+ = v_-$ for the op-amp to be in its normal operating range. In lab we will use an LM741 op-amp and more modern equivalents, such as the OP27 and the LT1498.
+
+An op-amp also has at least two other connections to it. Typically, it will require two separate power supply inputs (e.g. $\pm 15$\,V), sometimes a ground, sometimes frequency compensation, and possibly output trimming. The output trimming enables you to set the output voltage to zero when the two inputs are tied together.
+
+The symbol for an amplifier is a triangle with the inputs on one side and the outputs on point on the other side. If extra connections like power, compensation, or frequency control are shown, they are indicated by connections to the sides of the triangle.
+
+\subsection{Op-amp Golden Rules}
+Given the high input impedance and the near infinite gain, it is easy to analyze an op-amp's performance. Under normal operation with negative feedback, the op-amp will follow these two golden rules:
+\begin{enumerate}
+\item An op-amp draws no current into either input.
+\item An op-amp will do anything it can to its output to ensure that its two inputs have the same voltage.
+\end{enumerate}
+
+\subsection{Negative Feedback}
+For negative feedback, you will couple the output signal back into the inverting input in some way. In its simplest form, negative feedback forces the op-amp output to be whatever is required to ensure that the two inputs have the same voltage. We will define two different gains with the op-amp.  The \emph{open loop gain} ($A$) is the gain without feedback from the output to the inverting input.  The \emph{closed loop gain} ($G$) is the gain of the circuit with feedback from the output to the inverting input. 
+
+\section{Circuits with Op-Amps}
+\subsection{Follower}
+A \emph{follower} (i.e. $v_{out} = v_{in}$) is the simplest op-amp circuit with feedback. It can be made by simply connecting the output directly to the inverting input, as shown in Figure~\ref{fig:follower}. Since the op-amp will change the output to make the inverting input equal to the non-inverting input. This is a unity gain device just like those we made with single transistors except this one has even better input and output impedances. Followers are frequently called \emph{buffers}, since they can be used to isolate one sub-circuit from another.
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (opamp.+) to[short,-o] ++(-0.5,0) node[left]{$v_{in}$};
+\draw (opamp.out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (opamp.out) to[short] ++(0,1.5) -| (opamp.-);
+\end{circuitikz}
+\end{center}
+\caption{Op-amp follower or buffer.}
+\label{fig:follower}
+\end{figure}
+
+\subsection{Inverting Amplifier}
+An inverting amplifier with gain can be made by inserting a couple of resistors to the feedback system, as shown in Figure~\ref{fig:inverting_amplifier}. From the golden rules, the op-amp will adjust its output to make the inverting input be the same as the non-inverting input (i.e. ground). Therefore the voltage drop across $R_1$ is $v_{in}$ and the voltage drop across $R_2$ is $v_{out}$. Since the input cannot sink any current the current through the two resistors must be equal. To make this happen, the output and input voltages are related by
+\begin{equation}
+\frac{v_{out}}{R_2} + \frac{v_{in}}{R_1} = 0.
+\end{equation}
+Gain is defined as the ratio of $v_{out}/v_{in}$. Hence the gain is the ratio $G = -R_2 / R_1$. Note that most of the time, one uses feedback resistors in the 1--100\,k\Ohm range.
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (opamp.-) to[R,l=$R_1$,-o] ++(-2,0) node[left]{$v_{in}$};
+\draw (opamp.+) to[short] ++(-0.5,0) node[ground]{};
+\draw (opamp.out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (opamp.out) to[short] ++(0,1.5) to[R,l=$R_2$] ++(-2,0) -| (opamp.-);
+\end{circuitikz}
+\end{center}
+\caption{Inverting amplifier.}
+\label{fig:inverting_amplifier}
+\end{figure}
+
+\subsection{Non-Inverting Amplifier}
+A non-inverting amplifier can be made using two resistors as shown in Figure~\ref{fig:non_inverting_amplifier}. The analysis is very similar to the previous example. The voltage drop across $R_1$ is $v_{in}$. The current flowing through the $R_1$ and $R_2$ resistors will be the same because the inverting input draws no current. Using this we can show that the gain is given by:
+\begin{equation}
+G = \frac{v_{out}}{v_{in}} = 1 + \frac{R_2}{R_1}.
+\end{equation}
+We can also note that the follower was just a non-inverting amplifier with $R_2 = 0$ and an infinite $R_1$.
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (opamp.-) to[R,l=$R_1$] ++(-2,0) node[ground]{};
+\draw (opamp.+) to[short,-o] ++(-0.5,0) node[left]{$v_{in}$};
+\draw (opamp.out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (opamp.out) to[short] ++(0,1.5) to[R,l=$R_2$] ++(-2,0) -| (opamp.-);
+\end{circuitikz}
+\end{center}
+\caption{Non-inverting amplifier.}
+\label{fig:non_inverting_amplifier}
+\end{figure}
+
+\subsection{Summing Amplifier}
+Since the inverting input of the op-amp is a virtual ground, one could connect a number of inputs to the same point. The result is a \emph{summing amplifier}, shown in Figure~\ref{fig:summing_amplifier}. One can, for example, use this to add a DC offset, or bias, to a sine wave without blocking DC input with a capacitor.
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (opamp.-) to[short] ++(-0.5,0) to[short] ++(0,+0.5) to[R,l=$R_1$,-o] ++(-2,0) node[left]{$v_{in,1}$};
+\draw (opamp.-) to[short] ++(-0.5,0) to[short] ++(0,-0.5) to[R,l=$R_2$,-o] ++(-2,0) node[left]{$v_{in,2}$};
+\draw (opamp.+) to[short] ++(-0.5,0) node[ground]{};
+\draw (opamp.out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (opamp.out) to[short] ++(0,1.5) to[R,l=$R_2$] ++(-2,0) -| (opamp.-);
+\end{circuitikz}
+\end{center}
+\caption{Summing amplifier.}
+\label{fig:summing_amplifier}
+\end{figure}
+
+\section{Some Limitations to the Ideal Op-Amp Behavior}
+While the op-amp is nearly ideal, it does have limitations. It is good to define the limitations early in the topic to help us understand the properties of the real circuits we will try in the lab.
+\begin{enumerate}
+\item An amplifier can be modeled as an op-amp with an open loop gain of $A$ (large but finite). The \emph{open loop gain} is usually frequency dependent too. 
+\item The feedback loop actually redirects a fraction of the output current back to the inverting input. The fraction of the output that is returned is denoted by $\beta$. 
+\item A small but finite current is being drawn into the inputs. They are not quite the same. 
+\item They can only drive limited amount of current even though they have low output impedance. 
+\end{enumerate}
+We will discuss each of these issues on the following sections.
+
+\subsection{Finite Open Loop Gain}
+The open loop (no feedback) and closed loop gains (in a feedback loop) are related by
+\begin{equation}
+G = \frac{A}{1 + A \beta} = \frac{1}{\beta + A^{-1}}
+\end{equation}
+where $G$ is the closed loop gain and $A$ is the open loop gain. 
+
+An example of an application of this relationship can be given for the gain of the non-inverting amplifier.  The closed loop gain needs to be modified to include this effect by putting the open loop gain in parallel with the gain due to the feedback. The resulting gain is
+\begin{equation}
+G = \left( \frac{1}{A} + \frac{R_1}{R_1 + R_2} \right)^{-1}
+\end{equation}
+
+A common way to indirectly measure the open loop gain is to measure how the circuit gain deviates from $\beta^{-1}$. When the open loop gain is equal to $\beta^{-1}$, the total gain will be half of $\beta^{-1}$.
+
+\subsection{Finite Input Current}
+Since the inputs can sink (or draw) some current, it is also a good idea to match the impedances seen by the two inputs. To make a more perfect non-inverting amplifier, we can introduce a third resistor at the non-inverting input, as seen in Figure~\ref{fig:impedance_matched_non_inverting_amplifier}. Since the inverting input sees a voltage divider, the third resistor should be chosen to have the same resistance (i.e. $R_1$ and $R_2$ in parallel).
+
+\begin{figure}
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (opamp.-) to[R,l=$R_1$] ++(-2,0) node[ground]{};
+\draw (opamp.+) to[R,l=$R_3$,-o] ++(-2,0) node[left]{$v_{in}$};
+\draw (opamp.out) to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (opamp.out) to[short] ++(0,1.5) to[R,l=$R_2$] ++(-2,0) -| (opamp.-);
+\end{circuitikz}
+\end{center}
+\caption{Impedance-matched non-inverting amplifier.}
+\label{fig:impedance_matched_non_inverting_amplifier}
+\end{figure}
+
+\subsection{Slew Rate}
+The output voltage can only change so fast. This is due to internal capacitance in the op-amp used to control phase changes. The slew rate of a circuit is the maximum rate at which the output can change. Its value determines what frequencies can be usefully amplified with a particular op-amp. For an LM741 the slew rate (SR) is about 0.5\,V/$\mu$s, and on more modern equivalents, such as the OP27 and LT1498, it is an order of magnitude larger.
+
+\subsection{Voltage Compensation}
+The internal components of the op-amp like the transistors at the inputs are, in general, not completely identical. This often leads to what looks like an artificial voltage difference (or \emph{voltage offset}) between the inverting and non-inverting inputs. Most op-amps have an option to ``trim'' the inputs so that this effect can be eliminated. Examples of how to make these corrections are shown in the data sheets of op-amps. 
+
+\subsection{Op-amp Frequency Compensation}
+An op-amp's gain at DC can be very large but it decreases with increasing frequency. Since an op-amp consists of several discrete amplifiers following each other, each stage will have its own frequency limitations, which we can model simply as low pass filters.
+
+Any low pass filter introduces a \SI{90}{\degree} phase shift at frequencies higher than $f_{3dB}$. Consequently, at high frequencies the various internal amplifier stages will produce a net phase shift that is at least \SI{180}{\degree}. Since a \SI{180}{\degree} phase shift is a sign reversal, this turns negative feedback (which stabilizes a circuit) into positive feedback (which drives the output to the rails). So, it is important to ensure that the gain of any op-amp circuit has decreased so that the loop gain of your circuit is not larger than 1 by the time the net phase shift reaches \SI{180}{\degree}. Adding a capacitor that allows high frequencies to bypass the second stage of the amplifier chain will typically do this. This low pass filter thus limits the gain to be less than one where the phase shift reaches \SI{180}{\degree}. 
+
+Most of the op-amps we will use are internally compensated to ensure that the phase is constant over a wide range of frequencies even if you use the op-amp for open loop gains. This holds true until the open loop gain falls to about 1.
+
+Some op-amps come in versions that are either uncompensated or decompensated (not completely compensated), and you must add a capacitor externally. Since your loop gain may be less than the open loop gain, this lets you use the op-amp for gain at a higher frequency than you could get using an internally compensated version.
+
+
+\pagebreak
+
+\section{Design Exercises}
+
+\begin{enumerate}
+\item Design a voltage divider that will take a signal with a 150\,mV peak-to-peak signal and reduce it to a 0.5\,mV peak-to-peak output.
+
+\item Design an inverting amplifier with a gain of 10. 
+
+\item Derive the gain relationship for a differential amplifier (as seen in class).
+ 
+\item Design an amplifier which takes the arithmetic average of three input signals.
+
+\item \label{ex:differential_amplifier} Consider input voltage signals $v_a$ and $v_b$ which differ by a small amount, which is the real signal you want to extract. Design a ``differential'' amplifier circuit (more than one op-amp is necessary) which performs the following operation:
+\begin{equation}
+v_{out} = \gamma (\alpha v_a - v_b + V_0),
+\end{equation}
+where $\alpha$ is a variable gain of 0.1 to 10 on the $v_a$ input, $V_0$ is an adjustable DC offset with a range of -10\,V to +10\,V, and $\gamma$ is an overall gain with a range of 1 to 100. The input impedance for $v_a$ and $v_b$ should be in the 100\,k\Ohm range and the output should be able to drive 10\,k\Ohm at 10\,V. You may use as many op-amps as you want in your design. Variable control can be achieved using a potentiometer (i.e. a variable resistor).
+\end{enumerate}
+
+\section{Lab: Basic Op Amp Circuits}
+
+\begin{enumerate}
+\item (0.75 hours) Op-Amp with feedback.  Do either part a or b:
+\begin{enumerate}
+\item Design and construct a non-inverting amplifier with a gain of 10. Measure your circuit's gain, output range, input impedance, and output impedance.
+\item Design and construct an inverting amplifier with a gain of 15. Measure your circuit's gain, output range, input impedance and output impedance.
+\end{enumerate}
+
+\item (1.25 hours\ldots but infinite if you are not prepared) Differential amplifier.
+\begin{enumerate}
+\item Construct the differential amplifier you designed in design exercise~\ref{ex:differential_amplifier} (omit the part with $V_0$).
+\item Construct two signals sources using a 1\,V AC signal at 1\,kHz from a function generator and two voltage dividers in parallel -- one divider will divide by 3, the other will divide by 2. Use the voltage dividers outputs as $v_a$ and $v_b$. Show that you can use the gain control knobs to cancel the two signals. Also, adjust the gain settings to produce an output of 5 V$_{pk-pk}$ and look for distortion.
+\item Repeat at 100\,kHz. 
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
