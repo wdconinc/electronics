@@ -1,0 +1,109 @@
+\documentclass{article}
+
+
+% This file is a solution template for:
+\input{../../preamble/lab_preamble.tex}
+
+
+\title{Final lab}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item Consider the circuit in Figure~\ref{fig:opamp_filter} for characteristic frequency $f_{RC} = \omega_{RC}/2\pi = 10\,$kHz (choose suitable values for $R$ and $C$; note that in the logarithmic E6 resistor values scale $(0.15 \times 1.0)^{-1} \approx (0.22 \times 0.68)^{-1} \approx (0.33 \times 0.47)^{-1} \approx 2\pi$).
+\begin{figure}[htb]
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (opamp.-) -- ++(-0.5,0) node[circ](in){} -- ++(-0.5,0) to[R,l_=$R$] ++(-1.5,0) to[C,l_=$C$,-o] ++(-1.5,0) node[left]{$v_{in}$};
+\draw (in) |- ++(0,+1) node[circ](Rin){} -- ++(0.5,0) to[R,l=$R$] ++(+2,0) -- ++(0.38,0) node[circ](Rout){} -| (opamp.out);
+\draw (Rin) |- ++(0.5,+1.2) to[C,l=$C$] ++(+2,0) -| (Rout);
+\draw (opamp.+) -- ++(-0.5,0) node[ground]{};
+\draw (opamp.out) node[circ]{} to[short,-o] ++(+0.5,0) node[right]{$v_{out}$};
+\end{circuitikz}
+\end{center}
+\caption{Op amp circuit with two identical resistors $R$ and two identical capacitors $C$.}
+\label{fig:opamp_filter}
+\end{figure}
+\begin{enumerate}
+\item Using the low-frequency and high-frequency approximation, what will be the general frequency behavior of this filter circuit assuming ideal op amp behavior?
+\item Determine analytically the gain of the circuit in Figure~\ref{fig:opamp_filter}.  Make a reasonably accurate sketch of the Bode plot of the magnitude of the gain (or you can use Mathematica).  Determine the magnitude and phase of the gain at the characteristic frequency $\omega_{RC} = 1/RC$ (express your result as a magnitude in dB and a phase in fractions of $\pi$).
+\item Using an LM741 op amp and with a load of 100\,k\Ohm connected, measure the magnitude of the response as a function of frequency at 1\,Hz, 10\,Hz, 100\,Hz, 1\,kHz, 2\,kHz, 5\,kHz, 10\,kHz, 20\,kHz, 50\,kHz, 100\,kHz and 1\,MHz.  Create Bode plots for the measured magnitude only.  Measure the phase of the response function at 10\,kHz only.
+\item Does your circuit behave like you expect it to?  If not, where/when does it start to deviate?  What could be the causes?  Demonstrate that you can improve the behavior by using a different type of op amp (watch for different pin-outs).
+\end{enumerate}
+
+\pagebreak
+\item Sometimes it makes sense to combine an op amp circuit with regular transistors, for example in Figure~\ref{fig:opamp_transistors}.  Consider $R_1 = 1$\,k\Ohm and $R_2 = 100$\,k\Ohm.  Use a 10\,kHz sinusoidal input voltage with an amplitude of 100\,mV with loads of $R_L = 100$\,k\Ohm and $R_L = 100$\,\Ohm.
+\begin{figure}[htb]
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](opamp){};
+\draw (2.5,+1.5) node[npn](npn){};
+\draw (2.5,-1.5) node[pnp](pnp){};
+\draw (opamp.+) to[short] ++(-0.5,0) node[ground]{};
+\draw (opamp.-) to[short] ++(-0.5,0) node[circ](in){} to[R,l_=$R_1$,-o] ++(-2,0) node[left]{$v_{in}$};
+\draw (opamp.out) to[short] ++(0.5,0) node[circ](base){};
+\draw (base) |- (npn.base);
+\draw (base) |- (pnp.base);
+\draw (npn.collector) to[short,-o] ++(0,0.5) node[above]{$V_{+}$};
+\draw (npn.emitter) to[short] ++(0,-0.5) node[circ](out){} to[short] (pnp.emitter);
+\draw (pnp.collector) to[short,-o] ++(0,-0.5) node[below]{$V_{-}$};
+\draw (in) |- (-1,2) to[R,l=$R_2$] (+1,2) |- (out) to[short] ++(1,0) node[circ](load){} to[short,-o] ++(0.5,0) node[right]{$v_{out}$};
+\draw (load) to[R,l=$R_L$] ++(0,-2) node[ground]{};
+\end{circuitikz}
+\end{center}
+\caption{Op amp circuit with some transistors thrown in for good measure.}
+\label{fig:opamp_transistors}
+\end{figure}
+\begin{enumerate}
+\item What is the limitation of the op amp that would lead you to use the transistors in this circuit?  Demonstrate the undesired behavior of the circuit without the transistors by comparing the output signal for both loads.
+\item Use a pair of 2N3904 (npn) and 2N3906 (pnp) transistors to implement the full circuit with push-pull stage. Demonstrate \textbf{with the 100\,k\boldmath\Ohm load resistor only} that this still produces the correct output signal.  What would be the current flowing through the transistors with the 100\,\Ohm load resistor?  What would be the power dissipated in the 100\,\Ohm load resistor?  Congratulations, you have built your first power amplifier.  Unfortunately the proto-boards are not powerful enough to drive it\ldots
+\item What happened to the push-pull crossover distortion that we discussed in the lecture?
+\end{enumerate}
+
+\pagebreak
+\item An $n$-bit flash analog-to-digital converter (ADC) accepts an analog input voltage between $V_{min}$ and $V_{max}$, and outputs $n$ digital signals that indicate the magnitude of the signal in binary. The basic idea is to setup a series of comparators whose output is either a low or a high signal depending on whether the input voltage is larger or smaller than the comparator's reference voltage given by a chain of $n$ identical resistors in series between $V_{min}$ and $V_{max}$. For two bits of precision we need four resistors and three comparators; see Figure~\ref{fig:analog_digital_converter}.
+\begin{figure}[htb]
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[op amp](c1){};
+\draw (0,3) node[op amp](c2){};
+\draw (0,6) node[op amp](c3){};
+\draw (3,1.5) node[xor port](x1){};
+\draw (3,4.5) node[xor port](x2){};
+\draw (3,7.5) node[xor port](x3){};
+\draw (x1.out) to[diode] ++(2.0,0) -- ++(1.0,0) node[circ](x00){};
+\draw (x2.out) to[diode] ++(2.0,0) node[circ](x11){};
+\draw (x3.out) to[diode] ++(2.0,0) node[circ](x21){};
+\draw (x3.out) node[circ]{} -- ++(0,-1.0) to[diode] ++(2.0,0) -- ++(1.0,0) node[circ](x20){};
+\draw (x00) to[R] ++(0,-4) node[ground]{};
+\draw (x11) -- ++(0,-3) to[R] ++(0,-4) node[ground]{};
+\draw (x20) -- (x00);
+\draw (x21) -- (x11);
+\draw (x20) to[short,-o] ++(0,+3.0) node[above]{$b_0$};
+\draw (x21) to[short,-o] ++(0,+2.0) node[above]{$b_1$};
+\draw (c1.out) |- (x1.in 2);
+\draw (c2.out) node[circ]{} |- (x1.in 1);
+\draw (c2.out) node[circ]{} |- (x2.in 2);
+\draw (c3.out) node[circ]{} |- (x2.in 1);
+\draw (c3.out) node[circ]{} |- (x3.in 2);
+\draw (x3.in 1) -- ++(-1.0,0) node[ground]{};
+\draw (c1.+) -- (c2.+) node[circ]{} -- (c3.+) node[circ]{} to[short,-o] ++(0,+4.0) node[above]{$v_{in}$};
+\draw (c1.-) -- ++(-1.0,0) node[circ](r1){} to[R,-o] ++(0,-3.0) node[below]{$V_{min}$};
+\draw (c2.-) -- ++(-1.0,0) node[circ](r2){} to[R] (r1);
+\draw (c3.-) -- ++(-1.0,0) node[circ](r3){} to[R] (r2);
+\draw (c3.-) -- ++(-1.0,0) to[R,-o] ++(0,+3.0) node[above]{$V_{max}$};
+\end{circuitikz}
+\end{center}
+\caption{A flash analog-to-digital converter with input voltage $v_{in}$, reference voltages $V_{min}$ and $V_{max}$, and output logic bits $b_1$ and $b_0$.}
+\label{fig:analog_digital_converter}
+\end{figure}
+\begin{enumerate}
+\item Build a two bit analog-to-digital converter that will accept as input a low-frequency ($<$ Hz) sinusoidal waveform between $V_{min} = 0$\,V and $V_{max} = 5$\,V from your function generator, and that will output the bit pattern on the logic indicators on your proto-board.  You can use the LM2903 dual comparators and the LM7486 quad XOR gates.
+\item Explain why the pull-down resistors are needed.
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
