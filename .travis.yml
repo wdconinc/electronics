@@ -1,68 +1,51 @@
 os: linux
-
-# we use the R VM because it contains LaTeX and pandoc
-language: r
-
-# we need super user privileges, so we depend on the old travis-ci infrastructure
 sudo: required
+language: ruby
 
-# we can install additional software
-apt_packages:
-# we download pdf2djvu to also generate a djvu file of our LaTeX source
-  - pdf2djvu
+before_install:
+ - sudo apt-add-repository -y ppa:texlive-backports/ppa
+ - sudo apt-get update -q
+ - sudo apt-get install -y pandoc rubber texlive-science texlive-pictures texlive-latex-extra
 
 script:
-# if you have a markdown source, you can use pandoc to convert it to a LaTeX document
-  - pandoc -s --from=markdown_github --to=latex -V geometry:letter,margin=1in -o README.tex README.md
+ - sed -i 's|^\[\!\[.*||g' README.md
+ - pandoc -s --from=markdown --to=latex -V geometry:letterpaper,margin=1in -o README.tex README.md
+ - rubber --pdf README.tex
 
-# in the next step we use pdflatex to convert .tex to .pdf
-# of course we could use pandoc for this also, but pdflatex generates nicer PDFs
-  - pdflatex -interaction=nonstopmode master.tex
-  - pdflatex -interaction=nonstopmode README.tex
-  - pdflatex -interaction=nonstopmode lab01/lab01.tex
-  - pdflatex -interaction=nonstopmode lab01/notes01.tex
-  - pdflatex -interaction=nonstopmode lab02/lab02.tex
-  - pdflatex -interaction=nonstopmode lab02/notes02.tex
-  - pdflatex -interaction=nonstopmode lab03/lab03.tex
-  - pdflatex -interaction=nonstopmode lab03/notes03.tex
-  - pdflatex -interaction=nonstopmode lab04/lab04.tex
-  - pdflatex -interaction=nonstopmode lab04/notes04.tex
-  - pdflatex -interaction=nonstopmode lab05/lab05.tex
-  - pdflatex -interaction=nonstopmode lab05/notes05.tex
-  - pdflatex -interaction=nonstopmode lab06/lab06.tex
-  - pdflatex -interaction=nonstopmode lab06/notes06.tex
-  - pdflatex -interaction=nonstopmode lab07/lab07.tex
-  - pdflatex -interaction=nonstopmode lab07/notes07.tex
-  - pdflatex -interaction=nonstopmode lab08/lab08.tex
-  - pdflatex -interaction=nonstopmode lab08/notes08.tex
-  - pdflatex -interaction=nonstopmode lab09/lab09.tex
-  - pdflatex -interaction=nonstopmode lab09/notes09.tex
-  - pdflatex -interaction=nonstopmode lab10/lab10.tex
-  - pdflatex -interaction=nonstopmode lab10/notes10.tex
-  - pdflatex -interaction=nonstopmode lab11/lab11.tex
-  - pdflatex -interaction=nonstopmode lab11/notes11.tex
-  - pdflatex -interaction=nonstopmode lab12/lab12.tex
-  - pdflatex -interaction=nonstopmode lab12/notes12.tex
+ - pandoc -s --from=markdown --to=latex -V geometry:letterpaper,margin=1in -o LICENSE.tex LICENSE.md
+ - rubber --pdf LICENSE.tex
 
-# now we convert the pdf file to a much smaller djvu document  
-  - pdf2djvu -d 1200 -o master.djvu master.pdf
-after_success:
-# upload the previously generated pdf file to simonwaldherr.de (use $UPLOADSECRET as password)
+ - rubber --pdf lab01/lab01.tex
+ - rubber --pdf lab01/notes01.tex
+ - rubber --pdf lab02/lab02.tex
+ - rubber --pdf lab02/notes02.tex
+ - rubber --pdf lab03/lab03.tex
+ - rubber --pdf lab03/notes03.tex
+ - rubber --pdf lab04/lab04.tex
+ - rubber --pdf lab04/notes04.tex
+ - rubber --pdf lab05/lab05.tex
+ - rubber --pdf lab05/notes05.tex
+ - rubber --pdf lab06/lab06.tex
+ - rubber --pdf lab06/notes06.tex
+ - rubber --pdf lab07/lab07.tex
+ - rubber --pdf lab07/notes07.tex
+ - rubber --pdf lab08/lab08.tex
+ - rubber --pdf lab08/notes08.tex
+ - rubber --pdf lab09/lab09.tex
+ - rubber --pdf lab09/notes09.tex
+ - rubber --pdf lab10/lab10.tex
+ - rubber --pdf lab10/notes10.tex
+ - rubber --pdf lab11/lab11.tex
+ - rubber --pdf lab11/notes11.tex
+ - rubber --pdf lab12/lab12.tex
+ - rubber --pdf lab12/notes12.tex
 
 deploy:
-
-# provider releases means GitHub Releases
   provider: releases
   api_key:
-
-# Travis CI public key encrypted GitHub oauth key for pushing to GitHub Releases
-    secure: UNfN17F/m8PSbbU53/xHGqySzA/pyyrWIc42o6Mnb3EzOMlAhTLsHvnOTw8L27KEeszyZJp8TcyG0PCnFfTgzV3gWMc1tweLnPBwWYj+qFWqQyqc8pkG4xfMrEAfbFk20sYGQYoRnaws85uc/nCcXNhVKvcFMCaZUYcxJKV/Kdass4rsfc205nRqvXa3unWlg51YzNtAB2glGbhe9/Rw6SeeTJiUmcjWKPDEhTfCTF8X0d4QaM6RiDly+Vfzv9POf+FRk8HWrmiImxguxepHhb5Ellz7hPZlTQ6iEb+igzde7jxxUKc4otFSrDG45TLoQ8BKsf32AMUo/JjXMT29H2alEF3P/6pSaev2M9gyVsQbzCfxUQOUn5HilY0D3khEIiT1smK0LrQPrQcarldN4BLJm/WG9pzsjKOp3PZQ6Afy1TOG2LPJv+xOIJFhYHNQSp+jjRaPLxbDwcZfxGFPPTDJ2xJvPEoNjL3vT1bdppGgopZxShqmxxzolBMoG0Y+H87DKu7Zv8u3yyjxneP1dhb+StsTLS7GzahD3J2WjHos9UYZV2BGitMyy2j7GJQ5+oPBH3HdoiLjU8BcTOOQ7ZX6xDxBaA9MyT+Q6pYFuxpZkbmB/7GZFnizP7Hpf5WExGVIqlIeYM6zZSaha49SPWxdQSHDLZTUHVGcG4tDbLY=
-
-# the list of files to upload
-  file: 
-    - "master.pdf"
-    - "README.pdf"
-    - "master.djvu"
-  skip_cleanup: true
+    secure: FR+gX4RrmfM013JER9FwsxzBxzC0wk2XU0ZWlJQDh2cT01gIImmyMTK61WD+EpzOoXaar+YV1Qb99ZHw/83mRtBMfdxPXhHvaYR9z/MWnkTaYsQNGPhaukp2tPSMwURJYCpt+T+aTBbg1u9LrZaZZPpXCJQ8DxYWnpZGjEhNiP3YAxxvFnIN1cVCAU7GHyfPVOjrKaRp7cGmwzBZ0HcLKSTozRvZjeohQp5rkNPUuw8B4docIeESq8GFlmhIGx4SUfRWnA7pma3AQBH9imkktdPfqlt0dQ/8p+XEA1D+IDjLM+oZGfFIQ/lneMX1CDcvROQXeUXNTblPjYrJzEJFWykHR64bxlpmGjDsG6XfgBFd7Y9SoOW1crcoAfpDnmNBDpPQ1RpCIf9b9YaUxn8/WVIiamIisLHYJoCqQ0Lv9q4HEyNUZe3WEZExeNPddVqYzBdEmysa5pqPQhADbUrPilFbcVxQrI9YHRk/WBItUWCAjs8vE5XaCKHsLjDrvHGEDAoHb5QSbkRm5smhDRU6MVjwHLTX4ugEcuMGFAh7/qpj+KoBTaxx+K9VW4noXds/hHQf3cJ8Y9PZnZer6Sb6LCWmQJVEdCPVdiJKwdpPrU40R+NgGMCBcZ0eiirBWcrVl6bwjrG4QchqHO8Rkvx0i5RNBuy248taTMatGFhqJGE=
+  file:
+   - README.pdf
+   - LICENSE.pdf
   on:
     repo: wdconinc/electronics
