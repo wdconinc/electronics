@@ -1,4 +1,4 @@
-##Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+##Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
 ####This is a human-readable summary of (and not a substitute for) the <a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode" target="_blank">license</a>.
 
