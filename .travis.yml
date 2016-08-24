@@ -1,11 +1,13 @@
 os: linux
+dist: trusty
 sudo: required
-language: ruby
 
 before_install:
- - sudo apt-add-repository -y ppa:texlive-backports/ppa
- - sudo apt-get update -q
- - sudo apt-get install -y pandoc rubber texlive-science texlive-pictures texlive-latex-extra
+ - sudo apt-get install -y pandoc rubber
+ - sudo apt-get install -y texlive-fonts-recommended
+ - sudo apt-get install -y texlive-latex-recommended texlive-latex-extra
+ - sudo apt-get install -y texlive-science texlive-pictures
+ - sudo apt-get install -y texlive-xetex
 
 script:
  - sed -i 's|^\[\!\[.*||g' README.md
