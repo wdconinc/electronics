@@ -97,12 +97,12 @@
 % resp., then you can add a logo as 
 
 %remember extension must be ommited
-\pgfdeclareimage[height=1cm]{wm-wordmark-stacked}{styles/wm_wordmark_stacked_green}
-%\logo{\pgfuseimage{wm-wordmark-stacked}}
+\pgfdeclareimage[height=1cm]{cc-by-sa}{styles/CC-BY-SA_icon.png}
+%\logo{\pgfuseimage{cc-by-sa}}
 
-\institute[W\&M] % (optional, but mostly needed)
+\institute[CC BY-SA] % (optional, but mostly needed)
 {
-  \pgfuseimage{wm-wordmark-stacked}
+  \pgfuseimage{cc-by-sa}
 }
 % - Use the \inst command only if there are several affiliations.
 % - Keep it simple, no one is interested in your street address.
@@ -112,18 +112,18 @@
 %\beamerdefaultoverlayspecification{<+->}
 
 %
-\newcommand{\fixme}[1]{%
+\providecommand{\fixme}[1]{%
   { \em ---! FixMe #1 !---}
 }
 %
-\newcommand{\hide}[1]{%
+\providecommand{\hide}[1]{%
 }
 %
-\newcommand{\mat}[1]{% matlab code
+\providecommand{\mat}[1]{% matlab code
 {\color{blue}\texttt{#1}}%
 }
 %
-\newcommand{\mstr}[1]{% matlab code string
+\providecommand{\mstr}[1]{% matlab code string
 {\color{magenta}#1}%
 }
 
