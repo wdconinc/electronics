@@ -1,14 +1,12 @@
-\documentclass[handout]{beamer}
+\documentclass[beamer]{standalone}
+\usepackage{import}
+
 \usepackage{pgfpages}
+\pgfpagesuselayout{4 on 1}[letterpaper,border shrink=5mm,landscape]
 
-\pgfpagesuselayout{4 on 1}[letterpaper,border shrink=5mm]
-
-% This file is a solution template for:
-\input{preamble/beamer_presentation_preamble.tex}
+\import{preamble/}{beamer_presentation_preamble.tex}
 
 \begin{document}
-
 \date{Lecture 10}
-\input{slides10.tex}
-
+\import{lecture10/}{slides10.tex}
 \end{document}

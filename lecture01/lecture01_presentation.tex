@@ -1,13 +1,9 @@
-\documentclass[compress]{beamer}
+\documentclass[beamer]{standalone}
+\usepackage{import}
 
-%\includeonlyframes{draft}
-
-% This file is a solution template for:
-\input{preamble/beamer_presentation_preamble.tex}
+\import{preamble/}{beamer_presentation_preamble.tex}
 
 \begin{document}
-
 \date{Lecture 01}
-\input{slides01.tex}
-
+\import{lecture01/}{slides01.tex}
 \end{document}
