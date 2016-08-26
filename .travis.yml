@@ -18,12 +18,54 @@ script:
 - pandoc -s --from=markdown --to=latex -V geometry:letterpaper,margin=1in -o LICENSE.tex LICENSE.md
 - rubber --pdf LICENSE.tex
 
-- for i in `seq -w 01 12` ; do 
-    rubber --pdf lab${i}/lab${i}.tex
-    rubber --pdf lab${i}/notes${i}.tex
-    rubber --pdf lecture${i}/lecture${i}_handouts.tex
-    rubber --pdf lecture${i}/lecture${i}_presentation.tex
-  done
+- rubber --pdf lab01/lab01.tex
+- rubber --pdf lab01/notes01.tex
+- rubber --pdf lecture01/lecture01_handouts.tex
+- rubber --pdf lecture01/lecture01_presentation.tex
+- rubber --pdf lab02/lab02.tex
+- rubber --pdf lab02/notes02.tex
+- rubber --pdf lecture02/lecture02_handouts.tex
+- rubber --pdf lecture02/lecture02_presentation.tex
+- rubber --pdf lab03/lab03.tex
+- rubber --pdf lab03/notes03.tex
+- rubber --pdf lecture03/lecture03_handouts.tex
+- rubber --pdf lecture03/lecture03_presentation.tex
+- rubber --pdf lab04/lab04.tex
+- rubber --pdf lab04/notes04.tex
+- rubber --pdf lecture04/lecture04_handouts.tex
+- rubber --pdf lecture04/lecture04_presentation.tex
+- rubber --pdf lab05/lab05.tex
+- rubber --pdf lab05/notes05.tex
+- rubber --pdf lecture05/lecture05_handouts.tex
+- rubber --pdf lecture05/lecture05_presentation.tex
+- rubber --pdf lab06/lab06.tex
+- rubber --pdf lab06/notes06.tex
+- rubber --pdf lecture06/lecture06_handouts.tex
+- rubber --pdf lecture06/lecture06_presentation.tex
+- rubber --pdf lab07/lab07.tex
+- rubber --pdf lab07/notes07.tex
+- rubber --pdf lecture07/lecture07_handouts.tex
+- rubber --pdf lecture07/lecture07_presentation.tex
+- rubber --pdf lab08/lab08.tex
+- rubber --pdf lab08/notes08.tex
+- rubber --pdf lecture08/lecture08_handouts.tex
+- rubber --pdf lecture08/lecture08_presentation.tex
+- rubber --pdf lab09/lab09.tex
+- rubber --pdf lab09/notes09.tex
+- rubber --pdf lecture09/lecture09_handouts.tex
+- rubber --pdf lecture09/lecture09_presentation.tex
+- rubber --pdf lab10/lab10.tex
+- rubber --pdf lab10/notes10.tex
+- rubber --pdf lecture10/lecture10_handouts.tex
+- rubber --pdf lecture10/lecture10_presentation.tex
+- rubber --pdf lab11/lab11.tex
+- rubber --pdf lab11/notes11.tex
+- rubber --pdf lecture11/lecture11_handouts.tex
+- rubber --pdf lecture11/lecture11_presentation.tex
+- rubber --pdf lab12/lab12.tex
+- rubber --pdf lab12/notes12.tex
+- rubber --pdf lecture12/lecture12_handouts.tex
+- rubber --pdf lecture12/lecture12_presentation.tex
 
 - rubber --pdf electronics_labs.tex
 - rubber --pdf electronics_handouts.tex
