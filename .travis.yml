@@ -1,6 +1,7 @@
 os: linux
 dist: trusty
 sudo: required
+language: ruby
 
 before_install:
 - sudo apt-get install -y pandoc rubber
@@ -17,30 +18,15 @@ script:
 - pandoc -s --from=markdown --to=latex -V geometry:letterpaper,margin=1in -o LICENSE.tex LICENSE.md
 - rubber --pdf LICENSE.tex
 
-- rubber --pdf lab01/lab01.tex
-- rubber --pdf lab01/notes01.tex
-- rubber --pdf lab02/lab02.tex
-- rubber --pdf lab02/notes02.tex
-- rubber --pdf lab03/lab03.tex
-- rubber --pdf lab03/notes03.tex
-- rubber --pdf lab04/lab04.tex
-- rubber --pdf lab04/notes04.tex
-- rubber --pdf lab05/lab05.tex
-- rubber --pdf lab05/notes05.tex
-- rubber --pdf lab06/lab06.tex
-- rubber --pdf lab06/notes06.tex
-- rubber --pdf lab07/lab07.tex
-- rubber --pdf lab07/notes07.tex
-- rubber --pdf lab08/lab08.tex
-- rubber --pdf lab08/notes08.tex
-- rubber --pdf lab09/lab09.tex
-- rubber --pdf lab09/notes09.tex
-- rubber --pdf lab10/lab10.tex
-- rubber --pdf lab10/notes10.tex
-- rubber --pdf lab11/lab11.tex
-- rubber --pdf lab11/notes11.tex
-- rubber --pdf lab12/lab12.tex
-- rubber --pdf lab12/notes12.tex
+- for i in `seq -w 01 12` ; do 
+    rubber --pdf lab${i}/lab${i}.tex
+    rubber --pdf lab${i}/notes${i}.tex
+    rubber --pdf lecture${i}/lecture${i}_handouts.tex
+    rubber --pdf lecture${i}/lecture${i}_presentation.tex
+  done
+
+- rubber --pdf electronics_labs.tex
+- rubber --pdf electronics_handouts.tex
 
 deploy:
   provider: releases
@@ -49,6 +35,56 @@ deploy:
   file:
   - README.pdf
   - LICENSE.pdf
+  - electronics_labs.pdf
+  - electronics_handouts.pdf
+  - lab01.pdf
+  - lab02.pdf
+  - lab03.pdf
+  - lab04.pdf
+  - lab05.pdf
+  - lab06.pdf
+  - lab07.pdf
+  - lab08.pdf
+  - lab09.pdf
+  - lab10.pdf
+  - lab11.pdf
+  - lab12.pdf
+  - notes01.pdf
+  - notes02.pdf
+  - notes03.pdf
+  - notes04.pdf
+  - notes05.pdf
+  - notes06.pdf
+  - notes07.pdf
+  - notes08.pdf
+  - notes09.pdf
+  - notes10.pdf
+  - notes11.pdf
+  - notes12.pdf
+  - lecture01_handouts.pdf
+  - lecture02_handouts.pdf
+  - lecture03_handouts.pdf
+  - lecture04_handouts.pdf
+  - lecture05_handouts.pdf
+  - lecture06_handouts.pdf
+  - lecture07_handouts.pdf
+  - lecture08_handouts.pdf
+  - lecture09_handouts.pdf
+  - lecture10_handouts.pdf
+  - lecture11_handouts.pdf
+  - lecture12_handouts.pdf
+  - lecture01_presentation.pdf
+  - lecture02_presentation.pdf
+  - lecture03_presentation.pdf
+  - lecture04_presentation.pdf
+  - lecture05_presentation.pdf
+  - lecture06_presentation.pdf
+  - lecture07_presentation.pdf
+  - lecture08_presentation.pdf
+  - lecture09_presentation.pdf
+  - lecture10_presentation.pdf
+  - lecture11_presentation.pdf
+  - lecture12_presentation.pdf
   skip_cleanup: true
   on:
     repo: wdconinc/electronics
