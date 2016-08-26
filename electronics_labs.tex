@@ -5,8 +5,7 @@
 
 \import{preamble/}{lab_preamble}
 
-\title{Electronics}
-\date{Spring 2015}
+\title{Electronics: Lab Manuals}
 \author{Wouter Deconinck}
 
 \begin{document}
@@ -16,9 +15,9 @@
 
 \tableofcontents
 
-\chapter{Voltage, Current, Resistance, and Power}
-\import{lecture01/}{lecture01_handouts}
-\import{lab01/}{lab01}
-\import{lab01/}{notes01}
+\foreach \n in {01,02,03,04,05,06,07,08,09,10,11,12}{%
+ \import{lab\n/}{lab\n}
+ \import{lab\n/}{notes\n}
+}
 
 \end{document}

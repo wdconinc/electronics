@@ -1,0 +1,19 @@
+\documentclass[beamer]{standalone}
+\usepackage{import}
+
+\usepackage{pgfpages}
+\pgfpagesuselayout{4 on 1}[letterpaper,border shrink=5mm,landscape]
+
+\import{preamble/}{beamer_presentation_preamble.tex}
+
+\begin{document}
+
+\begin{frame}
+ \tableofcontents
+\end{frame}
+
+\foreach \n in {01,02,03,04,05,06,07,08,09,10,11,12}{%
+ \import{lecture\n/}{lecture\n_handouts}
+}
+
+\end{document}
