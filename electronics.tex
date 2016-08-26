@@ -1,0 +1,24 @@
+\documentclass{book}
+
+\usepackage[subpreambles=true]{standalone}
+\usepackage{import}
+
+\import{preamble/}{lab_preamble}
+
+\title{Electronics}
+\date{Spring 2015}
+\author{Wouter Deconinck}
+
+\begin{document}
+\maketitle
+
+\import{./}{calendar}
+
+\tableofcontents
+
+\chapter{Voltage, Current, Resistance, and Power}
+\import{lecture01/}{lecture01_handouts}
+\import{lab01/}{lab01}
+\import{lab01/}{notes01}
+
+\end{document}
