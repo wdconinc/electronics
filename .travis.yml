@@ -3,51 +3,52 @@ dist: trusty
 sudo: required
 
 before_install:
- - sudo apt-get install -y pandoc rubber
- - sudo apt-get install -y texlive-fonts-recommended texlive-fonts-extra
- - sudo apt-get install -y texlive-latex-recommended texlive-latex-extra
- - sudo apt-get install -y texlive-science texlive-pictures
- - sudo apt-get install -y texlive-xetex
+- sudo apt-get install -y pandoc rubber
+- sudo apt-get install -y texlive-fonts-recommended texlive-fonts-extra
+- sudo apt-get install -y texlive-latex-recommended texlive-latex-extra
+- sudo apt-get install -y texlive-science texlive-pictures
+- sudo apt-get install -y texlive-xetex
 
 script:
- - sed -i 's|^\[\!\[.*||g' README.md
- - pandoc -s --from=markdown --to=latex -V geometry:letterpaper,margin=1in -o README.tex README.md
- - rubber --pdf README.tex
+- sed -i 's|^\[\!\[.*||g' README.md
+- pandoc -s --from=markdown --to=latex -V geometry:letterpaper,margin=1in -o README.tex README.md
+- rubber --pdf README.tex
 
- - pandoc -s --from=markdown --to=latex -V geometry:letterpaper,margin=1in -o LICENSE.tex LICENSE.md
- - rubber --pdf LICENSE.tex
+- pandoc -s --from=markdown --to=latex -V geometry:letterpaper,margin=1in -o LICENSE.tex LICENSE.md
+- rubber --pdf LICENSE.tex
 
- - rubber --pdf lab01/lab01.tex
- - rubber --pdf lab01/notes01.tex
- - rubber --pdf lab02/lab02.tex
- - rubber --pdf lab02/notes02.tex
- - rubber --pdf lab03/lab03.tex
- - rubber --pdf lab03/notes03.tex
- - rubber --pdf lab04/lab04.tex
- - rubber --pdf lab04/notes04.tex
- - rubber --pdf lab05/lab05.tex
- - rubber --pdf lab05/notes05.tex
- - rubber --pdf lab06/lab06.tex
- - rubber --pdf lab06/notes06.tex
- - rubber --pdf lab07/lab07.tex
- - rubber --pdf lab07/notes07.tex
- - rubber --pdf lab08/lab08.tex
- - rubber --pdf lab08/notes08.tex
- - rubber --pdf lab09/lab09.tex
- - rubber --pdf lab09/notes09.tex
- - rubber --pdf lab10/lab10.tex
- - rubber --pdf lab10/notes10.tex
- - rubber --pdf lab11/lab11.tex
- - rubber --pdf lab11/notes11.tex
- - rubber --pdf lab12/lab12.tex
- - rubber --pdf lab12/notes12.tex
+- rubber --pdf lab01/lab01.tex
+- rubber --pdf lab01/notes01.tex
+- rubber --pdf lab02/lab02.tex
+- rubber --pdf lab02/notes02.tex
+- rubber --pdf lab03/lab03.tex
+- rubber --pdf lab03/notes03.tex
+- rubber --pdf lab04/lab04.tex
+- rubber --pdf lab04/notes04.tex
+- rubber --pdf lab05/lab05.tex
+- rubber --pdf lab05/notes05.tex
+- rubber --pdf lab06/lab06.tex
+- rubber --pdf lab06/notes06.tex
+- rubber --pdf lab07/lab07.tex
+- rubber --pdf lab07/notes07.tex
+- rubber --pdf lab08/lab08.tex
+- rubber --pdf lab08/notes08.tex
+- rubber --pdf lab09/lab09.tex
+- rubber --pdf lab09/notes09.tex
+- rubber --pdf lab10/lab10.tex
+- rubber --pdf lab10/notes10.tex
+- rubber --pdf lab11/lab11.tex
+- rubber --pdf lab11/notes11.tex
+- rubber --pdf lab12/lab12.tex
+- rubber --pdf lab12/notes12.tex
 
 deploy:
   provider: releases
   api_key:
-    secure: FR+gX4RrmfM013JER9FwsxzBxzC0wk2XU0ZWlJQDh2cT01gIImmyMTK61WD+EpzOoXaar+YV1Qb99ZHw/83mRtBMfdxPXhHvaYR9z/MWnkTaYsQNGPhaukp2tPSMwURJYCpt+T+aTBbg1u9LrZaZZPpXCJQ8DxYWnpZGjEhNiP3YAxxvFnIN1cVCAU7GHyfPVOjrKaRp7cGmwzBZ0HcLKSTozRvZjeohQp5rkNPUuw8B4docIeESq8GFlmhIGx4SUfRWnA7pma3AQBH9imkktdPfqlt0dQ/8p+XEA1D+IDjLM+oZGfFIQ/lneMX1CDcvROQXeUXNTblPjYrJzEJFWykHR64bxlpmGjDsG6XfgBFd7Y9SoOW1crcoAfpDnmNBDpPQ1RpCIf9b9YaUxn8/WVIiamIisLHYJoCqQ0Lv9q4HEyNUZe3WEZExeNPddVqYzBdEmysa5pqPQhADbUrPilFbcVxQrI9YHRk/WBItUWCAjs8vE5XaCKHsLjDrvHGEDAoHb5QSbkRm5smhDRU6MVjwHLTX4ugEcuMGFAh7/qpj+KoBTaxx+K9VW4noXds/hHQf3cJ8Y9PZnZer6Sb6LCWmQJVEdCPVdiJKwdpPrU40R+NgGMCBcZ0eiirBWcrVl6bwjrG4QchqHO8Rkvx0i5RNBuy248taTMatGFhqJGE=
+    secure: c42Ygc5l72reee2weXOpiFoNsOlJ6RJ46wdF9D++QqBzMLRrHL8luBET/GbGXRwhPohUFLun7RTsGlcyGLkqWNP/Aj7iVRoA/69LYNNKPrRAWAFAxiGN0OdY/w6YEj4wZ+UHe3DkOJ0WL69P9oS69glDT0pMdmNWLTC62DKPOt5NpAThgAhXv8MpeNWawq1Qv1eK/c2C4d7TJvlU7K4OqEY3wl5mXyakj2/hmuLG1vUJqxLAGgwI1KcvGQDjAe+tOeGPcSVTfYUD0RpCUDYbJWdEv1CzEmHj6OJrvsL3GVr/5Ti4AuZh/n9QkNztVg14DCuEIMmIdxoRElTF4Hv9gb3AK12KB4+aWMyXxsnqiUBmXSFSe2R9bHERJw942rekxrk4CZd9sghdSi30GjPJrzpzNPSePL7drQmrrDC8g4F5BiLfXVRcxu5ZWySnU+F6CNicyp35RitW1K/xQMOkZ3iIvS3Ko1it9CES5kZb7L50W0+8VObgqEOafREcMuE4Qzra6XDVwidKQXoR5aBscvDYiTatpKS1F3xsKfgzxNCyrFfDsjIEYhqUXYU12+4Vo8cymR2WA/8MtpwRPNMACijoSOWTGE4nOuu+rIkuHZHlS0B/Abyu7KNx1f/l1dU4qBYwrPN4vDbGHJtmmHcB0U3tiaclGyc2YrMnVfrAzc8=
   file:
-   - README.pdf
-   - LICENSE.pdf
+  - README.pdf
+  - LICENSE.pdf
+  skip_cleanup: true
   on:
     repo: wdconinc/electronics
