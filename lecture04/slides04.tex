@@ -3,7 +3,7 @@
 \begin{document}
 
 \title[Electronics 1]{Filters}
-\titlegraphic{\pgfimage[height=0.5\textheight]{pics/brita}}
+\titlegraphic{\includegraphics[height=0.5\textheight]{pics/brita}}
 
 \begin{frame} 
   \titlepage
@@ -26,7 +26,7 @@
  \frametitle{Fourier series}
  \begin{block}{Example: Square wave}
   \begin{center}
-   \pgfimage[width=0.5\textwidth]{pics/square_wave}
+   \includegraphics[width=0.5\textwidth]{pics/square_wave}
   \end{center}
   \[ f(t) = \frac{4}{\pi} \sum_{n=1,3,5,\ldots}^{+\infty} \frac{1}{n} \sin\left(\frac{2n\pi t}{T}\right) \]
  \end{block}
@@ -39,7 +39,7 @@
  \frametitle{Fourier series}
  \begin{block}{Example: Square wave}
   \begin{center}
-   \pgfimage[width=0.48\textwidth]{pics/square_wave_approximation}
+   \includegraphics[width=0.48\textwidth]{pics/square_wave_approximation}
   \end{center}
   Filters (high-pass or low-pass) will have the effect of removing certain frequency harmonics.
  \end{block}
@@ -55,7 +55,7 @@
  \end{block}
  \begin{block}<2>{Example: Square wave and triangle wave}
   \begin{center}
-   \pgfimage[width=0.65\textwidth]{pics/square_wave_b_n}
+   \includegraphics[width=0.65\textwidth]{pics/square_wave_b_n}
   \end{center}
  \end{block}
 \end{frame}
@@ -93,7 +93,7 @@
 \begin{frame}
 \frametitle{Fourier transform}
 \begin{center}
-\pgfimage[height=0.7\textheight]{pics/fourier} \\
+\includegraphics[height=0.7\textheight]{pics/fourier} \\
 \href{http://xkcd.com/26}{xkcd/26}
 \end{center}
 \end{frame}
@@ -457,7 +457,7 @@ R, L, and C combo is required or a complicated network of R-C, R-L elements.
  \frametitle{RLC filters}
  \begin{columns}
   \begin{column}{0.4\textwidth}
-   \pgfimage[width=\textwidth]{pics/RLC_circuit}
+   \includegraphics[width=\textwidth]{pics/RLC_circuit}
   \end{column}
   \begin{column}{0.6\textwidth}
    \begin{itemize}
@@ -527,7 +527,7 @@ R, L, and C combo is required or a complicated network of R-C, R-L elements.
 \begin{frame}
  \frametitle{RLC filters: gain across capacitor}
  \begin{center}
-  \pgfimage[width=0.6\textwidth]{pics/RLC_bode_capacitor}
+  \includegraphics[width=0.6\textwidth]{pics/RLC_bode_capacitor}
  \end{center}
 \end{frame}
 
@@ -569,7 +569,7 @@ R, L, and C combo is required or a complicated network of R-C, R-L elements.
 \begin{frame}
  \frametitle{RLC filters: gain across inductor}
  \begin{center}
-  \pgfimage[width=0.6\textwidth]{pics/RLC_bode_inductor}
+  \includegraphics[width=0.6\textwidth]{pics/RLC_bode_inductor}
  \end{center}
 \end{frame}
 
@@ -577,10 +577,10 @@ R, L, and C combo is required or a complicated network of R-C, R-L elements.
  \frametitle{RLC filters: gain larger than 0\,dB}
  \begin{columns}
   \begin{column}{0.5\textwidth}
-   \pgfimage[width=\textwidth]{pics/RLC_bode_capacitor}   
+   \includegraphics[width=\textwidth]{pics/RLC_bode_capacitor}   
   \end{column}
   \begin{column}{0.5\textwidth}
-   \pgfimage[width=\textwidth]{pics/RLC_bode_inductor}
+   \includegraphics[width=\textwidth]{pics/RLC_bode_inductor}
   \end{column}
  \end{columns}
  \begin{block}{Gain larger than 1}

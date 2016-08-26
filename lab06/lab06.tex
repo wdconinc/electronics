@@ -51,7 +51,7 @@ The program is relatively easy to use. When you start the program you will get a
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_startup_screen}
+\includegraphics[width=0.6\textwidth]{pics/5spice_startup_screen}
 \end{center}
 \caption{The 5Spice start screen has a toolbox bar with frequently used icons on the right.  From top to bottom they are: run calculation, cursor mode, wires, passive elements (resistors, capacitors, inductors), semiconductor elements, ICs and active components, voltage and current sources, test points, text, and logic gates.}
 \label{fig:5spice:startup_screen}
@@ -64,7 +64,7 @@ We start with the passive components: the resistor and the capacitor. We insert 
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_add_component}
+\includegraphics[width=0.6\textwidth]{pics/5spice_add_component}
 \end{center}
 \caption{We select the capacitor and drop it onto the schematic canvas.}
 \label{fig:5spice:add_component}
@@ -74,7 +74,7 @@ The schematic canvas now has a single capacitor in the middle of it. Figure~\ref
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_component_dropped}
+\includegraphics[width=0.6\textwidth]{pics/5spice_component_dropped}
 \end{center}
 \caption{The schematic canvas now contains a single capacitor with a default value of 10\,nF.}
 \label{fig:5spice:component_dropped}
@@ -84,7 +84,7 @@ We can change the value of the capacitance by selecting the component, right-cli
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.3\textwidth]{pics/5spice_edit_parameters}
+\includegraphics[width=0.3\textwidth]{pics/5spice_edit_parameters}
 \end{center}
 \caption{The ``Edit Parameter'' dialog allows to change the capacitance value.}
 \label{fig:5spice:edit_parameter}
@@ -100,7 +100,7 @@ We only need to add the wires in to make our low-pass $RC$ filter.  We do this b
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_adding_wires}
+\includegraphics[width=0.6\textwidth]{pics/5spice_adding_wires}
 \end{center}
 \caption{We select the wire drawing tool to add the wire connections.  Notice that proper wire junctions are indicated with a small filled circle.}
 \label{fig:5spice:adding_wires}
@@ -110,7 +110,7 @@ The completed circuit, with all components connected by wires, is shown in Figur
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_added_wires}
+\includegraphics[width=0.6\textwidth]{pics/5spice_added_wires}
 \end{center}
 \caption{The completed circuit, after adding all components and all wires, is now ready for simulations.}
 \label{fig:5spice:added_wires}
@@ -124,7 +124,7 @@ The ``analysis dialog'' allows you to perform three principal types of analysis 
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_select_analysis}
+\includegraphics[width=0.6\textwidth]{pics/5spice_select_analysis}
 \end{center}
 \caption{The analysis dialog is used to select the type of analysis to be performed.}
 \label{fig:5spice:select_analysis}
@@ -135,7 +135,7 @@ You use this analysis to determine the steady-state or quiescent operation of a 
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_DC_bias}
+\includegraphics[width=0.6\textwidth]{pics/5spice_DC_bias}
 \end{center}
 \caption{The results of the ``DC bias'' analysis can be found in the ``DC Bias'' tab of the main window.}
 \label{fig:5spice:DC_bias}
@@ -146,7 +146,7 @@ We use the ``analysis dialog'' to setup an AC analysis as shown in Figure~\ref{f
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_AC_analysis}
+\includegraphics[width=0.6\textwidth]{pics/5spice_AC_analysis}
 \end{center}
 \caption{The AC analysis setup is more involved than the DC bias analysis.}
 \label{fig:5spice:AC_analysis}
@@ -156,7 +156,7 @@ The AC analysis generally outputs a Bode plot of the frequency scan. The plot ca
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_AC_analysis_output_graphs}
+\includegraphics[width=0.6\textwidth]{pics/5spice_AC_analysis_output_graphs}
 \end{center}
 \caption{The ``Graph/Table'' tab allows us to define the output graphs for the AC analysis.  Notice the vertical and horizontal autoscale check boxes in the top right.}
 \label{fig:5spice:AC_analysis_output_graphs}
@@ -166,7 +166,7 @@ When we run the AC analysis, 5Spice calculates the behavior of the output over t
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_AC_analysis_results}
+\includegraphics[width=0.6\textwidth]{pics/5spice_AC_analysis_results}
 \end{center}
 \caption{The AC analysis output plots show both the magnitude and the phase of the output signal at the test point. The graph also features two sliding readouts, which are here set to the 3\,dB frequency and to a frequency 100 times larger.}
 \label{fig:5spice:AC_analysis_results}
@@ -179,7 +179,7 @@ Transient analysis is done in the time domain. SPICE numerically computes the ti
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_transient_analysis}
+\includegraphics[width=0.6\textwidth]{pics/5spice_transient_analysis}
 \end{center}
 \caption{The transient analysis is selected and a simulation time is specified.}
 \label{fig:5spice:transient_analysis}
@@ -187,7 +187,7 @@ Transient analysis is done in the time domain. SPICE numerically computes the ti
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_transient_analysis_square_wave}
+\includegraphics[width=0.6\textwidth]{pics/5spice_transient_analysis_square_wave}
 \end{center}
 \caption{Double-clicking the source parameters bring up the square wave input parameter dialog.}
 \label{fig:5spice:transient_analysis_square_wave}
@@ -199,7 +199,7 @@ If the transient analysis cannot produce a solution even after adjusting the abo
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_numerical_tolerances}
+\includegraphics[width=0.6\textwidth]{pics/5spice_numerical_tolerances}
 \end{center}
 \caption{The numerical computation convergence tolerances and additional parameters can be modified in the ``Spice Defaults'' tab.}
 \label{fig:5spice:numerical_tolerances}
@@ -209,7 +209,7 @@ The results of the transient analysis are plotted versus time. The graphs must b
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/5spice_transient_results}
+\includegraphics[width=0.6\textwidth]{pics/5spice_transient_results}
 \end{center}
 \caption{The plot of the transient analysis results for the low-pass $RC$ filter with a square wave input signal shows that the low-pass $RC$ filter acts as an integrator.}
 \label{fig:5spice:transient_results}
@@ -235,7 +235,7 @@ Circuit design in EAGLE is similar to 5Spice. You open a blank schematic canvas,
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/eagle_schematic_blank}
+\includegraphics[width=0.6\textwidth]{pics/eagle_schematic_blank}
 \end{center}
 \caption{The blank EAGLE schematic window.}
 \label{fig:eagle:schematic_blank}
@@ -251,7 +251,7 @@ Finally, we need an input port and output port for our filter.  We can choose a 
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/eagle_schematic_bandpass}
+\includegraphics[width=0.6\textwidth]{pics/eagle_schematic_bandpass}
 \end{center}
 \caption{The EAGLE schematic window.}
 \label{fig:eagle:schematic_bandpass}
@@ -262,7 +262,7 @@ Once the schematic is complete, it can be converted to a board by selecting the 
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/eagle_board_start}
+\includegraphics[width=0.6\textwidth]{pics/eagle_board_start}
 \end{center}
 \caption{The ``Switch to board'' menu or button generates an initial board from the schematic, but you are responsible for placing the components and drawing the traces.}
 \label{fig:eagle:board_start}
@@ -274,7 +274,7 @@ An important fact to remember is that the board has two sides which you can use 
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/eagle_board_autorouter}
+\includegraphics[width=0.6\textwidth]{pics/eagle_board_autorouter}
 \end{center}
 \caption{The ``Autorouter'' does an acceptable job for simple circuits.}
 \label{fig:eagle:board_autorouter}
@@ -286,7 +286,7 @@ When making a board that will work at RF frequencies, a good rule of thumb is to
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.6\textwidth]{pics/eagle_board_complete}
+\includegraphics[width=0.6\textwidth]{pics/eagle_board_complete}
 \end{center}
 \caption{Finished board with ground planes and holes for components. All the ground wires have been replaced by ground planes.}
 \label{fig:eagle:board_complete}
@@ -299,7 +299,7 @@ The CAM processor also has ``EPS'' and ``PS'' devices which will create accurate
 
 \begin{figure}
 \begin{center}
-\pgfimage[width=0.45\textwidth]{pics/band_pass_bottom} \pgfimage[width=0.45\textwidth]{pics/band_pass_top}
+\includegraphics[width=0.45\textwidth]{pics/band_pass_bottom} \includegraphics[width=0.45\textwidth]{pics/band_pass_top}
 \end{center}
 \caption{Output EPS files as produced by the CAM processor in EAGLE.}
 \label{fig:eagle:board_eps}
