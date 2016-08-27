@@ -20,7 +20,7 @@ script:
 
 - rubber --pdf lab01/lab01.tex
 - rubber --pdf lab01/notes01.tex
-- pdflatex lecture01/lecture01_handouts.tex
+- rubber --pdf lecture01/lecture01_handouts.tex
 - rubber --pdf lecture01/lecture01_presentation.tex
 - rubber --pdf lab02/lab02.tex
 - rubber --pdf lab02/notes02.tex
