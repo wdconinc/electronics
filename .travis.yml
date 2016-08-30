@@ -75,8 +75,8 @@ script:
 
 - rubber --pdf lab12/lab12.tex
 - rubber --pdf lab12/notes12.tex
-- rubber --pdf lecture12/lecture12_handouts.tex
-- rubber --pdf lecture12/lecture12_presentation.tex
+- pdflatex lecture12/lecture12_handouts.tex
+- pdflatex lecture12/lecture12_presentation.tex
 
 - rubber --pdf electronics_labs.tex
 - rubber --pdf electronics_handouts.tex
