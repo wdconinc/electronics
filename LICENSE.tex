@@ -1,0 +1,100 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\date{}
+
+\begin{document}
+
+\subsection{Creative Commons Attribution-ShareAlike 4.0 International
+(CC BY-SA
+4.0)}\label{creative-commons-attribution-sharealike-4.0-international-cc-by-sa-4.0}
+
+\paragraph{This is a human-readable summary of (and not a substitute
+for) the
+license.}\label{this-is-a-human-readable-summary-of-and-not-a-substitute-for-the-license.}
+
+\paragraph{You are free to:}\label{you-are-free-to}
+
+\textbf{Share} - copy and redistribute the material in any medium or
+format
+
+\textbf{Adapt} - remix, transform, and build upon the material
+
+for any purpose, even commercially.
+
+The licensor cannot revoke these freedoms as long as you follow the
+license terms.
+
+\paragraph{Under the following terms:}\label{under-the-following-terms}
+
+\textbf{Attribution} - You must give \textbf{appropriate credit},
+provide a link to the license, and \textbf{indicate if changes were
+made}. You may do so in any reasonable manner, but not in any way that
+suggests the licensor endorses you or your use.
+
+\textbf{ShareAlike} - If you remix, transform, or build upon the
+material, you must distribute your contributions under the \textbf{same
+license} as the original.
+
+\textbf{No additional restrictions} - You may not apply legal terms or
+\textbf{technological measures} that legally restrict others from doing
+anything the license permits.
+
+\paragraph{Notices:}\label{notices}
+
+You do not have to comply with the license for elements of the material
+in the public domain or where your use is permitted by an applicable
+\textbf{exception or limitation}.
+
+No warranties are given. The license may not give you all of the
+permissions necessary for your intended use. For example, other rights
+such as \textbf{publicity, privacy, or moral rights} may limit how you
+use the material.
+
+\end{document}
